@@ -27,16 +27,13 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem; /* Verhindert, dass die Topbar Anker-Ziele verdeckt */
-  height: 100%;
 }
 
 body {
   padding-top: 5rem; /* Platz für die fixierte Topbar */
   font-family: sans-serif;
   background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
-  height: 100%;
-    overscroll-behavior: none;
-    min-height: 100dvh;
+  min-height: 100vh;
 }
 
 
