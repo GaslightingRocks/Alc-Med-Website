@@ -26,11 +26,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem; /* Verhindert, dass die Topbar Anker-Ziele verdeckt */
+  scroll-padding-top: 5rem; 
+  height: 100%;
 }
 
 body {
-  padding-top: 5rem; /* Platz für die fixierte Topbar */
+  padding-top: 5rem; 
   font-family: sans-serif;
   background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
   hight: 100%;
@@ -45,10 +46,10 @@ h1, h2 {
 }
 
 .top-label {
-  font-size: clamp(1.8rem, 4vw, 2.8rem); /* Skaliert automatisch besser auf dem Handy */
+  font-size: clamp(1.8rem, 4vw, 2.8rem); 
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-weight: 800; /* Etwas dicker, damit der Verlauf besser wirkt */
+  font-weight: 800; 
   margin-bottom: 2rem;
   text-align: center;
   
