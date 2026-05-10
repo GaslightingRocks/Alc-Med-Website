@@ -33,7 +33,7 @@ body {
   padding-top: 5rem; /* Platz für die fixierte Topbar */
   font-family: sans-serif;
   background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
-  min-height: 100vh;
+  hight: 100%;
 }
 
 
