@@ -114,26 +114,6 @@ youtubeModal.addEventListener('click', (e) => {
   });
 
 
-  /* ── 5. Hamburger Menü ────────────────────────────────── */
-
-  const hamburger = document.getElementById('hamburger');
-  const nav = document.getElementById('nav');
-
-  if (hamburger && nav) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      nav.classList.toggle('open');
-    });
-
-    nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        nav.classList.remove('open');
-      });
-    });
-  }
-
-
   /* ── 6. Rechtsklick sperren ───────────────────────────── */
 
   document.addEventListener('contextmenu', (e) => {
@@ -165,12 +145,28 @@ if (form) {
     }
   });
 }
+/* ── 5. Hamburger-Menü ──────────────────────────────────── */
+document.addEventListener("DOMContentLoaded", () => {
 
+  const hamburger = document.getElementById("hamburger");
+  const nav = document.getElementById("nav");
 
-const hamburger = document.getElementById("hamburger");
-const nav = document.getElementById("nav");
+  if (!hamburger || !nav) {
+    console.warn("Hamburger oder Nav nicht gefunden");
+    return;
+  }
 
-hamburger.addEventListener("click", () => {
-  nav.classList.toggle("open");
-  hamburger.classList.toggle("open");
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("open");
+    nav.classList.toggle("open");
+  });
+
+  // Menü schließen beim Klick auf Link
+  nav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      hamburger.classList.remove("open");
+      nav.classList.remove("open");
+    });
+  });
+
 });
