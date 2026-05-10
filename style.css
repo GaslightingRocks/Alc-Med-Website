@@ -1,0 +1,1013 @@
+/* =============================================================
+   style.css – Alcedo Media
+   Struktur:
+   1.  Reset & Basis
+   2.  Typografie
+   3.  Navigation / Topbar
+   4.  Hero-Video
+   5.  Sektionen & Labels
+   6.  Animationen
+   7.  Galerie
+   8.  Partner-Logos (Kunden)
+   9.  Über-mich Bereich
+   10. CTA-Bereich
+   12. YouTube-Modal
+   13. Bild-Lightbox
+   14. Footer
+   15. Responsive (max-width: 600px)
+   ============================================================= */
+
+
+/* ── 1. Reset & Basis ─────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* Verhindert, dass die Topbar Anker-Ziele verdeckt */
+}
+
+body {
+  padding-top: 5rem; /* Platz für die fixierte Topbar */
+  font-family: sans-serif;
+  background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
+  min-height: 100vh;
+}
+
+
+/* ── 2. Typografie ────────────────────────────────────────── */
+
+h1, h2 {
+  color: white;
+  text-align: center;
+}
+
+.top-label {
+  font-size: clamp(1.8rem, 4vw, 2.8rem); /* Skaliert automatisch besser auf dem Handy */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 800; /* Etwas dicker, damit der Verlauf besser wirkt */
+  margin-bottom: 2rem;
+  text-align: center;
+  
+  /* Der Farbverlauf-Trick */
+  background: linear-gradient(90deg, #ffffff 0%, white 30%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-label {
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.section-label-big {
+  font-size: 2.5rem;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.section-label-mid {
+  font-size: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Fließtext Biografie */
+.text-bio {
+  color: white;
+}
+
+/* Leistungen – Listentext */
+.text-leist {
+  color: white;
+  font-weight: bold;
+}
+
+.leist-list {
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.leist-list li {
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+/* Lila Strich als Listenpunkt */
+.leist-list li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: rgb(180, 80, 180);
+}
+
+.impUdat{
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 1rem;
+
+}
+
+
+/* ── 3. Navigation / Topbar ───────────────────────────────── */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+ background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0)
+  );
+  backdrop-filter: blur(14px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  overflow: visible;
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.home-button {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: auto;
+}
+
+.inline-logo {
+  height: 2em;
+  width: auto;
+  vertical-align: middle;
+  margin-right: 0.2rem;
+}
+
+/* Logo-Block auf der Startseite (oberhalb der Topbar) */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.centered-logo {
+  width: 100px;
+  height: 100px;
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 0.3rem;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  padding: 6px 10px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  background-color: #5858581f;
+  border-radius: 5px;
+}
+
+.nav a:hover {
+  transform: scale(1.05);
+}
+
+/* ── Hamburger Button ───────────────────────── */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 2px;
+  background: white;
+  transition: 0.3s;
+}
+
+/* ── Desktop Nav ───────────────────────────── */
+
+.nav {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.nav a:hover {
+  background: rgba(180,80,180,0.2);
+}
+
+/* ── MOBILE ───────────────────────────── */
+
+@media (max-width: 600px) {
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 4rem;
+    right: 1rem;
+
+    flex-direction: column;
+    gap: 0.5rem;
+
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(12px);
+    padding: 1rem;
+    border-radius: 10px;
+
+    display: none;
+  }
+
+  .nav.open {
+    display: flex;
+  }
+}
+/* ── 4. Hero-Video ────────────────────────────────────────── */
+
+video.hero {
+  width: 90%;
+  display: block;
+  margin: 2rem auto;
+  box-shadow: 0 0 50px rgb(60, 30, 60);
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+}
+
+/* Globaler Fallback für alle sonstigen Videos */
+video {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgb(60, 30, 60);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Globaler Fallback für alle Bilder */
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ── 5. Sektionen & Labels ────────────────────────────────── */
+
+section {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+section + section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* contact form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+.contact-form {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-size: 1rem;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.contact-form button {
+  padding: 0.9rem;
+  background: #2a0e29;
+  border: 1px solid rgba(180, 80, 180, 0.4);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.contact-form button:hover {
+  background: #3d1540;
+}
+
+/* ── 6. Animationen ───────────────────────────────────────── */
+
+/* Einblende-Animation für den Seitentitel */
+@keyframes blende {
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.blende-in {
+  animation: blende 1s linear;
+}
+
+/* Scroll-Animation: von links einschweben */
+@keyframes appear-x {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+.animation {
+  animation: appear-x linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+  will-change: transform, opacity;
+}
+
+
+/* ── 7. Galerie ───────────────────────────────────────────── */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 50px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.gallery-item-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgb(20, 4, 20);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  height: auto;
+}
+
+.gallery-item-wrapper:hover {
+  box-shadow: 0 0 50px rgb(87, 38, 87);
+}
+
+/* Video-Items belegen 2 Spalten */
+.gallery-item-wrapper.video-item {
+  grid-column: span 2;
+}
+
+/* Bild-Items: Zoom-Cursor signalisiert Klickbarkeit */
+.gallery-item-wrapper.image-item {
+  cursor: zoom-in;
+}
+
+/* Medien innerhalb der Galerie */
+.gallery-item-wrapper img,
+.gallery-item-wrapper video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+}
+
+.gallery-item-wrapper.video-item img,
+.gallery-item-wrapper.video-item video {
+  aspect-ratio: 16 / 9;
+}
+
+/* Bildunterschrift – standardmäßig unten versteckt */
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.1rem 1rem 1rem;
+  color: white;
+  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+  font-weight: 200;
+  text-shadow: 2px 2px 10px rgb(16, 16, 16);
+  transform: translateY(70%);
+}
+
+/* Play-Button Overlay für Video-Vorschauen */
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.play-icon::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+  margin-left: 3px;
+}
+
+.gallery-item-wrapper:hover .play-icon {
+  opacity: 0;
+}
+
+
+/* ── 8. Partner-Logos (Kunden) ────────────────────────────── */
+
+.gallery-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.rahmen-firmen {
+  width: clamp(80px, 12vw, 150px);
+  height: auto;
+  border-radius: 5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  filter: brightness(100%);
+}
+
+.rahmen-firmen:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgb(87, 38, 87);
+}
+
+/* ── 9. Über-mich Bereich ─────────────────────────────────── */
+
+.about-grid {
+  display: grid;
+  /* Asymmetrisches Grid: Textbereich etwas breiter als der Bildbereich */
+  grid-template-columns: 1.3fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  
+  /* Sanfter Karten-Effekt (Glassmorphism-Ansatz) */
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Überschreibt das globale Center-Alignment für diesen Bereich */
+.about-title {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+/* Eleganter violetter Akzentstrich unter der Überschrift */
+.about-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background: rgb(180, 80, 180);
+  border-radius: 2px;
+}
+
+.text-bio p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 1rem;
+}
+
+.about-img-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.about-img {
+  width: 100%;
+  max-width: 320px; /* Kontrollierte Maximalbreite, damit es nicht zu riesig wird */
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgb(20, 4, 20);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid rgba(180, 80, 180, 0.3); /* Sanfter Rand passend zum Theme */
+}
+
+.about-img:hover {
+  transform: scale(1.03) translateY(-5px);
+  box-shadow: 0 15px 40px rgba(180, 80, 180, 0.25);
+}
+
+/* ── 10. CTA-Bereich ──────────────────────────────────────── */
+
+.cta-section {
+  text-align: center;
+}
+
+.cta-section p {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  background: #2a0e29;
+  border: 1px solid rgba(180, 80, 180, 0.4);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.cta-btn:hover {
+  background: #3d1540;
+}
+
+.cta-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ── 10b. Leistungs-Karten ────────────────────────────────── */
+
+.leist-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.leist-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 1.4rem 1.4rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.leist-card:hover {
+  background: rgba(180, 80, 180, 0.08);
+  border-color: rgba(180, 80, 180, 0.35);
+}
+
+.leist-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(180, 80, 180, 0.18);
+  border: 1px solid rgba(180, 80, 180, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: rgb(200, 120, 200);
+}
+
+.leist-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.leist-card-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* ── 12. YouTube-Modal ────────────────────────────────────── */
+
+.modal {
+  display: none; /* per JS auf flex setzen zum Öffnen */
+  position: fixed;
+  z-index: 2000; /* über Topbar (z-index: 1000) */
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+}
+
+.close-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: rgb(180, 80, 180);
+}
+
+/* 16:9 Format via padding-bottom Trick */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 9 ÷ 16 = 0.5625 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgb(87, 38, 87);
+}
+
+.video-container iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.video-caption {
+  margin-top: 1.2rem;
+  text-align: center;
+  color: rgba(255,255,255,0.75);
+  font-size: 0.95rem;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── 13. Bild-Lightbox ────────────────────────────────────── */
+
+#image-lightbox {
+  display: none; /* wird per .active-Klasse auf flex gesetzt */
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.92);
+  justify-content: center;
+  align-items: center;
+}
+
+#image-lightbox.active {
+  display: flex;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+/* ↓ Bildgröße anpassen: max-width & max-height nach Wunsch ändern */
+.lightbox-content img {
+  max-width: 60vw;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 60px rgb(87, 38, 87);
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.lightbox-close:hover {
+  color: rgb(180, 80, 180);
+}
+
+.lightbox-caption {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+
+/* ── 14. Footer ───────────────────────────────────────────── */
+
+footer {
+  padding: 3rem 1rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.footer-content p {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: rgb(180, 80, 180);
+}
+
+
+/* ── 15. Responsive (max-width: 600px) ───────────────────── */
+
+@media (max-width: 600px) {
+
+   .nav {
+    display: flex;          /* überschreibt das display: none */
+    position: static;       /* kein absolutes Dropdown mehr */
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    width: auto;
+  }
+   .topbar-inner {
+    gap: 12rem;   
+  }
+
+
+  .nav.open {
+    display: flex;
+  }
+
+  .home-button {
+    margin-right: 0;
+  }
+
+  /* Über-mich untereinander */
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Galerie: 2 Spalten statt auto-fit */
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .gallery-item-wrapper.video-item {
+    grid-column: span 2;
+  }
+
+  /* Lightbox auf kleinen Screens breiter */
+  .lightbox-content img {
+    max-width: 92vw;
+    max-height: 75vh;
+  }
+}
+
+/* ------------------ skallierung der über mich sektion -------------- */
+/* Tablet & Mobile Breakpoint für die Über-Mich Sektion */
+@media (max-width: 800px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  /* Text und Überschrift auf Mobile zentrieren */
+  .about-title {
+    text-align: center;
+  }
+
+  /* Akzentstrich zentrieren */
+  .about-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Bild-Reihenfolge ändern: Bild erscheint auf Mobile über dem Text */
+  .about-img-wrapper {
+    order: -1; 
+  }
+  
+  .about-img {
+    max-width: 250px; /* Bild auf dem Handy etwas kleiner */
+  }
+}
+
+.youtube-consent {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  z-index: 10;
+}
+
+.youtube-consent button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  background: rgb(180, 80, 180);
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.video-container {
+  position: relative; /* WICHTIG für Overlay */
+}
+
+
+/* ── Kopf Logo Animation ── */
+
+.anim-logo {
+  width: 150px; /* Oder deine gewünschte Größe */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.draw-item {
+  /* Startzustand: Keine Füllung, nur Kontur */
+  fill-opacity: 0;
+  stroke: rgba(255, 255, 255, 0.8); /* Etwas heller für besseren Kontrast */
+  stroke-width: 1; /* Etwas dicker, damit man es gut sieht */
+  
+  /* Der absolut sichere Weg: Ein riesiger Wert für Dash und Offset */
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  
+  /* Animationen zuweisen */
+  animation: 
+    drawLines 8s ease-out forwards, 
+    fillColor 1s ease-in 0.5s forwards; /* Startet leicht verzögert */
+}
+.eye {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in 1s forwards;
+}
+
+/* Keyframes: Linien zeichnen */
+@keyframes drawLines {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Keyframes: Farbe füllen und Kontur ausblenden */
+@keyframes fillColor {
+  to {
+    fill-opacity: 1;
+    stroke-opacity: 0;
+  }
+}
+
+/* Keyframes: Augen einblenden */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
