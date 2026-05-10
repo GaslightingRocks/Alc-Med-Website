@@ -88,6 +88,15 @@ h1, h2 {
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
+.section-label-mid+ {
+  font-size: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 1.5rem;
+  font-weight: 1000;
+}
 
 /* Fließtext Biografie */
 .text-bio {
@@ -217,7 +226,6 @@ h1, h2 {
 .nav a:hover {
   transform: scale(1.05);
 }
-
 /* ── Hamburger Button ───────────────────────── */
 
 .hamburger {
@@ -258,7 +266,32 @@ h1, h2 {
   background: rgba(180,80,180,0.2);
 }
 
-/* ── MOBILE ───────────────────────────── */
+/* Hamburger-Button (nur mobil sichtbar, siehe Responsive) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hamburger → X Animation */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 600px) {
 
@@ -270,16 +303,12 @@ h1, h2 {
     position: absolute;
     top: 4rem;
     right: 1rem;
-
     flex-direction: column;
-    gap: 0.5rem;
-
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(0,0,0,0.9);
     padding: 1rem;
     border-radius: 10px;
 
-    display: none;
+    display: none; /* <- wichtig */
   }
 
   .nav.open {
@@ -354,7 +383,7 @@ section + section {
   width: 100%;
   padding: 0.9rem;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.39);
   background: rgba(255,255,255,0.05);
   color: white;
   font-size: 1rem;
@@ -362,7 +391,7 @@ section + section {
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: rgba(255,255,255,0.4);
+  color: rgb(255, 255, 255);
 }
 
 .contact-form button {
@@ -620,7 +649,7 @@ section + section {
 
 .cta-section p {
   font-size: clamp(1rem, 3vw, 1.3rem);
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(255, 255, 255);
   margin-bottom: 2rem;
   line-height: 1.7;
 }
@@ -858,23 +887,18 @@ footer {
 /* ── 15. Responsive (max-width: 600px) ───────────────────── */
 
 @media (max-width: 600px) {
+.nav {
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s ease;
+}
 
-   .nav {
-    display: flex;          /* überschreibt das display: none */
-    position: static;       /* kein absolutes Dropdown mehr */
-    background: none;
-    box-shadow: none;
-    padding: 0;
-    width: auto;
-  }
-   .topbar-inner {
-    gap: 12rem;   
-  }
-
-
-  .nav.open {
-    display: flex;
-  }
+.nav.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
 
   .home-button {
     margin-right: 0;
