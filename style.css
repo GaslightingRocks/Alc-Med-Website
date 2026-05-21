@@ -851,7 +851,6 @@ section + section {
   margin-top: 0.75rem;
 }
 
-
 /* ── 14. Footer ───────────────────────────────────────────── */
 
 footer {
@@ -1034,4 +1033,40 @@ footer {
   to {
     opacity: 1;
   }
+}
+
+
+
+
+/* gallery to swipe */
+#lightbox-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.8rem;
+}
+
+#lb-prev, #lb-next {
+  background: rgba(255,255,255,0.08);
+  border: 0.5px solid rgba(255,255,255,0.25);
+  color: white;
+  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.2s;
+}
+
+#lb-prev:hover, #lb-next:hover {
+  background: rgba(180,80,180,0.3);
+}
+
+#lb-counter {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.9rem;
+  min-width: 60px;
+  text-align: center;
 }
