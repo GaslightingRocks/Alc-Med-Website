@@ -4,8 +4,8 @@
    1.  Galerie-Video: Hover Play/Pause
    2.  YouTube-Modal: Öffnen & Schließen
    3.  Bild-Lightbox: Öffnen & Schließen
-   4.  Hamburger-Menü: Toggle
-   5.  Galerie: Rechtsklick sperren
+   4.  Kontaktformular
+   5.  Hamburger-Menü: Toggle
    ============================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,149 +24,156 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  /* ── 2. YouTube Modal (FIXED) ─────────────────────────── */
-const youtubeModal   = document.getElementById('youtube-modal');
-const youtubeIframe  = document.getElementById('youtube-iframe');
-const youtubeClose   = document.querySelector('.close-btn');
-const consentBox     = document.getElementById('youtube-consent');
-const consentBtn     = document.getElementById('youtube-consent-btn');
-const youtubeCaption = document.getElementById('youtube-caption');
+  /* ── 2. YouTube Modal ─────────────────────────────────── */
 
-let currentVideoId = null;
+  const youtubeModal   = document.getElementById('youtube-modal');
+  const youtubeIframe  = document.getElementById('youtube-iframe');
+  const youtubeClose   = document.querySelector('.close-btn');
+  const consentBox     = document.getElementById('youtube-consent');
+  const consentBtn     = document.getElementById('youtube-consent-btn');
+  const youtubeCaption = document.getElementById('youtube-caption');
 
-document.querySelectorAll('.youtube-link').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
+  let currentVideoId = null;
 
-    currentVideoId = link.getAttribute('data-youtube');
-    const caption = link.getAttribute('data-caption') || "";
+  document.querySelectorAll('.youtube-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
 
-    // 👉 IMMER setzen (sofort sichtbar)
-    youtubeCaption.textContent = caption;
+      currentVideoId = link.getAttribute('data-youtube');
+      const caption = link.getAttribute('data-caption') || '';
 
-    youtubeModal.style.display = 'flex';
-    consentBox.style.display = 'flex';
-    youtubeIframe.src = "";
+      youtubeCaption.textContent = caption;
+      youtubeModal.style.display = 'flex';
+      consentBox.style.display = 'flex';
+      youtubeIframe.src = '';
+    });
   });
-});
 
-consentBtn.addEventListener('click', () => {
-  youtubeIframe.src =
-    `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+  consentBtn.addEventListener('click', () => {
+    youtubeIframe.src =
+      `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+    consentBox.style.display = 'none';
+  });
 
-  consentBox.style.display = 'none';
-});
+  const closeYoutubeModal = () => {
+    youtubeModal.style.display = 'none';
+    youtubeIframe.src = '';
+    consentBox.style.display = 'flex';
+    youtubeCaption.textContent = '';
+  };
 
-const closeYoutubeModal = () => {
-  youtubeModal.style.display = 'none';
-  youtubeIframe.src = "";
-  consentBox.style.display = 'flex';
-  youtubeCaption.textContent = "";
-};
+  youtubeClose.addEventListener('click', closeYoutubeModal);
 
-youtubeClose.addEventListener('click', closeYoutubeModal);
+  youtubeModal.addEventListener('click', (e) => {
+    if (e.target === youtubeModal) closeYoutubeModal();
+  });
 
-youtubeModal.addEventListener('click', (e) => {
-  if (e.target === youtubeModal) closeYoutubeModal();
-});
-  /* ── 3. Bild Lightbox ─────────────────────────────────── */
 
-  const lightbox        = document.getElementById('image-lightbox');
-  const lightboxImg     = document.getElementById('lightbox-img');
-  const lightboxCaption = document.getElementById('lightbox-caption');
-  const lightboxClose   = document.querySelector('.lightbox-close');
+  /* ── 3. Bild-Lightbox ─────────────────────────────────── */
+
+  let lbImages = [];
+  let lbIndex  = 0;
+
+  function openLightbox(images, startIndex) {
+    lbImages = images;
+    lbIndex  = startIndex;
+    renderLightbox();
+    document.getElementById('image-lightbox').classList.add('active');
+  }
+
+  function renderLightbox() {
+    const item = lbImages[lbIndex];
+    document.getElementById('lightbox-img').src = item.src;
+    document.getElementById('lightbox-caption').textContent = item.caption || '';
+
+    const nav = document.getElementById('lightbox-nav');
+    if (lbImages.length > 1) {
+      nav.style.display = 'flex';
+      document.getElementById('lb-counter').textContent =
+        (lbIndex + 1) + ' / ' + lbImages.length;
+    } else {
+      nav.style.display = 'none';
+    }
+  }
 
   document.querySelectorAll('.gallery-item-wrapper.image-item').forEach(item => {
     item.addEventListener('click', () => {
-
-      const img = item.querySelector('img');
-
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-
-      lightboxCaption.textContent =
-        item.getAttribute('data-caption') || '';
-
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      const raw = item.dataset.gallery;
+      if (raw) {
+        try {
+          openLightbox(JSON.parse(raw), 0);
+        } catch (e) {
+          console.error('Ungültiges JSON in data-gallery:', e);
+        }
+      } else {
+        const img = item.querySelector('img');
+        openLightbox([{ src: img.src, caption: item.dataset.caption || '' }], 0);
+      }
     });
   });
 
-  const closeLightbox = () => {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  };
-
-  lightboxClose.addEventListener('click', closeLightbox);
-
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
+  document.getElementById('lb-prev').addEventListener('click', () => {
+    lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+    renderLightbox();
   });
 
+  document.getElementById('lb-next').addEventListener('click', () => {
+    lbIndex = (lbIndex + 1) % lbImages.length;
+    renderLightbox();
+  });
 
-  /* ── 4. ESC schließt alles ───────────────────────────── */
+  document.querySelector('.lightbox-close').addEventListener('click', () => {
+    document.getElementById('image-lightbox').classList.remove('active');
+  });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeLightbox();
-      closeYoutubeModal();
+  document.getElementById('image-lightbox').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('image-lightbox')) {
+      document.getElementById('image-lightbox').classList.remove('active');
     }
   });
 
 
-  /* ── 6. Rechtsklick sperren ───────────────────────────── */
+  /* ── 4. Kontaktformular ───────────────────────────────── */
 
-  document.addEventListener('contextmenu', (e) => {
-    if (e.target.closest('.gallery')) e.preventDefault();
-  });
+  const form = document.getElementById('kontaktform');
 
-});
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
+      const response = await fetch('https://formspree.io/f/xvzvwjoo', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
 
-/* ── Contact Form ───────────────────────────────────────── */
-
-const form = document.getElementById("kontaktform");
-
-if (form) {
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const response = await fetch("https://formspree.io/f/xvzvwjoo", {
-      method: "POST",
-      body: new FormData(form),
-      headers: { "Accept": "application/json" }
+      if (response.ok) {
+        form.reset();
+        alert('✅ Nachricht gesendet! Ich melde mich so bald wie möglich.');
+      } else {
+        alert('❌ Fehler beim Senden.');
+      }
     });
-
-    if (response.ok) {
-      form.reset();
-      alert("✅ Nachricht gesendet! Ich melde mich so bald wie möglich.");
-    } else {
-      alert("❌ Fehler beim Senden.");
-    }
-  });
-}
-/* ── 5. Hamburger-Menü ──────────────────────────────────── */
-document.addEventListener("DOMContentLoaded", () => {
-
-  const hamburger = document.getElementById("hamburger");
-  const nav = document.getElementById("nav");
-
-  if (!hamburger || !nav) {
-    console.warn("Hamburger oder Nav nicht gefunden");
-    return;
   }
 
-  hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("open");
-    nav.classList.toggle("open");
-  });
 
-  // Menü schließen beim Klick auf Link
-  nav.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      hamburger.classList.remove("open");
-      nav.classList.remove("open");
+  /* ── 5. Hamburger-Menü ────────────────────────────────── */
+
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('nav');
+
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      nav.classList.toggle('open');
     });
-  });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        nav.classList.remove('open');
+      });
+    });
+  }
 
 });

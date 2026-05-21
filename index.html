@@ -112,14 +112,15 @@
 <br></p>
     <div class="gallery">
 
+
       <!-- Video-Items: data-youtube = YouTube-Video-ID -->
       <a href="#" data-youtube="0O08ParzMEc?si=DoXPtKa6760mO6k_"  data-caption="Bei AP-Film an der gesamten Produktion Mitgewirkt" class="gallery-item-wrapper video-item animation youtube-link">
-        <img src="./KBF Jerus.png" alt="KBF Jerusalem">
+        <img src="./KBF Jerus.webp" alt="KBF Jerusalem">
         <div class="play-icon"></div>
       </a>
 
       <a href="#" data-youtube="JMG1xBxL0fE?si=UpP2_S_4k72Jt41C"  data-caption="Bei AP-Film an der gesamten Produktion Mitgewirkt" class="gallery-item-wrapper video-item animation youtube-link">
-        <img src="./KK RL.png" alt="Kreisklinik Reutlingen">
+        <img src="./KK RL.webp" alt="Kreisklinik Reutlingen">
         <div class="play-icon"></div>
       </a>
 
@@ -128,11 +129,18 @@
         <div class="play-icon"></div>
       </a>
 
-      <!-- Foto-Items: data-caption = Text in der Lightbox -->
-      <div class="gallery-item-wrapper image-item animation" data-caption="Hochzeits Fotografie">
-        <img src="./WeddingThumb.webp" alt="Hochzeit">
-        <p class="gallery-caption"></p>
-      </div>
+<div class="gallery-item-wrapper image-item animation"
+     data-gallery='[
+       {"src":"./Wedding8.webp",  "caption":"Weg zum Altar"},
+       {"src":"./Wedding.webp", "caption":"Paar"},
+       {"src":"./Wedding3.webp", "caption":"Empfang"},
+       {"src":"./Wedding4.webp", "caption":"Deko"},
+       {"src":"./Wedding2.webp", "caption":"Portraits"},
+       {"src":"./Wedding7.webp", "caption":"Portraits"},
+       {"src":"./Wedding5.webp", "caption":"Portraits"}
+     ]'>
+  <img src="./WeddingThumb.webp" alt="Hochzeit">
+</div>
 
       <div class="gallery-item-wrapper image-item animation" data-caption="Tripsdrill">
         <img src="./Tripsdrill.jpg" alt="Tripsdrill">
@@ -145,10 +153,17 @@
         <p class="gallery-caption"></p>
       </a>
 
-      <div class="gallery-item-wrapper image-item animation" data-caption="Lakonikos Kochbuch">
-        <img src="./Lak.jpg" alt="Lakonikos Kochbuch">
-        <p class="gallery-caption"></p>
-      </div>
+      <div class="gallery-item-wrapper image-item animation"
+     data-gallery='[
+       {"src":"./1.jpg",  "caption":"Weg zum Altar"},
+       {"src":"./2.jpg", "caption":"Paar"},
+       {"src":"./3.jpg", "caption":"Empfang"},
+       {"src":"./5.jpg", "caption":"Portraits"},
+      {"src":"./6.jpg", "caption":"Portraits"},
+       {"src":"./lakÖl.webp", "caption":"Portraits"}
+     ]'>
+  <img src="./Lak.webp" alt="Hochzeit">
+</div>
 
       <div class="gallery-item-wrapper image-item animation" data-caption="Tüb. Stocherkahn">
         <img src="./Tübi.jpg" alt="Tübingen Stocherkahn">
@@ -271,15 +286,20 @@
        
 
   <!-- ── Bild-Lightbox ─────────────────────────────────────── -->
+<div id="image-lightbox">
+  <div class="lightbox-content">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
 
-  <div id="image-lightbox">
-    <div class="lightbox-content">
-      <span class="lightbox-close">&times;</span>
-      <img id="lightbox-img" src="" alt="">
-      <p class="lightbox-caption" id="lightbox-caption"></p>
+    <!-- Navigation (nur bei Galerien sichtbar) -->
+    <div id="lightbox-nav" style="display:none;">
+      <button id="lb-prev">&#8249;</button>
+      <span id="lb-counter"></span>
+      <button id="lb-next">&#8250;</button>
     </div>
   </div>
-
+</div>
 
   <!-- ── Scripts ───────────────────────────────────────────── -->
 
