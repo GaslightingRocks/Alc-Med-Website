@@ -210,7 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     projectData.forEach(project => {
       const wrapper = document.createElement('div');
-      wrapper.className = 'gallery-item-wrapper animation';
+    // Kein ".animation"-Klasse hier: Auf referenzen.html soll die
+      // Scroll-Einblend-Animation nicht laufen, nur auf der Startseite.
+      wrapper.className = 'gallery-item-wrapper';
 
       if (project.type === 'video') {
         wrapper.classList.add('video-item', 'youtube-link');
