@@ -35,18 +35,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentVideoId = null;
 
-  document.querySelectorAll('.youtube-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
+  // Event-Delegation statt Einzel-Listener: funktioniert auch für
+  // .youtube-link-Elemente, die erst später dynamisch eingefügt werden
+  // (z.B. auf referenzen.html über renderReferenzen()).
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('.youtube-link');
+    if (!link) return;
+    e.preventDefault();
 
-      currentVideoId = link.getAttribute('data-youtube');
-      const caption = link.getAttribute('data-caption') || '';
+    currentVideoId = link.getAttribute('data-youtube');
+    const caption = link.getAttribute('data-caption') || '';
 
-      youtubeCaption.textContent = caption;
-      youtubeModal.style.display = 'flex';
-      consentBox.style.display = 'flex';
-      youtubeIframe.src = '';
-    });
+    youtubeCaption.textContent = caption;
+    youtubeModal.style.display = 'flex';
+    consentBox.style.display = 'flex';
+    youtubeIframe.src = '';
   });
 
   consentBtn.addEventListener('click', () => {
@@ -96,20 +99,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.querySelectorAll('.gallery-item-wrapper.image-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const raw = item.dataset.gallery;
-      if (raw) {
-        try {
-          openLightbox(JSON.parse(raw), 0);
-        } catch (e) {
-          console.error('Ungültiges JSON in data-gallery:', e);
-        }
-      } else {
-        const img = item.querySelector('img');
-        openLightbox([{ src: img.src, caption: item.dataset.caption || '' }], 0);
+  // Event-Delegation: greift auch für Kacheln, die referenzen.html
+  // erst nach dem Laden per JS in die Seite rendert.
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item-wrapper.image-item');
+    if (!item) return;
+
+    const raw = item.dataset.gallery;
+    if (raw) {
+      try {
+        openLightbox(JSON.parse(raw), 0);
+      } catch (err) {
+        console.error('Ungültiges JSON in data-gallery:', err);
       }
-    });
+    } else {
+      const img = item.querySelector('img');
+      openLightbox([{ src: img.src, caption: item.dataset.caption || '' }], 0);
+    }
   });
 
   document.getElementById('lb-prev').addEventListener('click', () => {
@@ -175,5 +181,59 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+
+  /* ── 6. Referenzen-Seite: Projekte aus Datenliste rendern ─
+     Jedes neue Projekt = ein neues Objekt hier eintragen.
+     Kein HTML anfassen nötig. Drei Typen möglich:
+
+     - "video"   → YouTube-Vorschau, öffnet das YouTube-Modal
+     - "image"   → einzelnes Bild, öffnet die Lightbox (ohne Unterschrift)
+     - "gallery" → mehrere Bilder, öffnet die Lightbox mit Pfeil-Navigation
+  ───────────────────────────────────────────────────────── */
+
+  const projectData = [
+    { type: 'video',   thumb: './KBF Jerus.webp',    youtube: '0O08ParzMEc?si=DoXPtKa6760mO6k_', caption: 'Bei AP-Film an der gesamten Produktion mitgewirkt' },
+    { type: 'video',   thumb: './KK RL.webp',        youtube: 'JMG1xBxL0fE?si=UpP2_S_4k72Jt41C',  caption: 'Bei AP-Film an der gesamten Produktion mitgewirkt' },
+    { type: 'video',   thumb: './911MilThum.png',    youtube: 'L6qSjLmOwjU?si=tO8hRNcLg51GVo6A',  caption: 'Bei AP-Film in der Postproduktion mitgewirkt' },
+    { type: 'gallery', thumb: './WeddingThumb.webp', images: ['./Wedding8.webp', './Wedding.webp', './Wedding3.webp', './Wedding4.webp', './Wedding2.webp', './Wedding7.webp', './Wedding5.webp'] },
+    { type: 'image',   thumb: './Tripsdrill.jpg' },
+    { type: 'gallery', thumb: './Lak.webp',          images: ['./1.jpg', './2.jpg', './3.jpg', './5.jpg', './6.jpg', './LakÖl.png'] },
+    { type: 'image',   thumb: './Tübi.jpg' },
+    // ↓ neues Projekt einfach hier als weiteres Objekt anhängen, z.B.:
+    // { type: 'image', thumb: './NeuesProjekt.jpg' },
+  ];
+
+  function renderReferenzen() {
+    const grid = document.getElementById('referenzen-grid');
+    if (!grid) return; // Funktion tut nichts, wenn es die Seite/das Grid gar nicht gibt
+
+    projectData.forEach(project => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'gallery-item-wrapper animation';
+
+      if (project.type === 'video') {
+        wrapper.classList.add('video-item', 'youtube-link');
+        wrapper.setAttribute('data-youtube', project.youtube);
+        if (project.caption) wrapper.setAttribute('data-caption', project.caption);
+        wrapper.innerHTML = `
+          <img src="${project.thumb}" alt="">
+          <div class="play-icon"></div>
+        `;
+      } else if (project.type === 'gallery') {
+        wrapper.classList.add('image-item');
+        const galleryData = project.images.map(src => ({ src }));
+        wrapper.setAttribute('data-gallery', JSON.stringify(galleryData));
+        wrapper.innerHTML = `<img src="${project.thumb}" alt="">`;
+      } else {
+        wrapper.classList.add('image-item');
+        wrapper.innerHTML = `<img src="${project.thumb}" alt="">`;
+      }
+
+      grid.appendChild(wrapper);
+    });
+  }
+
+  renderReferenzen();
 
 });

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alle Referenzen von Alcedo Media – Foto- und Videoprojekte, Hochzeiten, Kampagnen und mehr.">
+  <title>Referenzen - Alcedo Media</title>
+  <link rel="icon" type="image/svg+xml" href="./logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <! -- So funktioniert's, kurz erklärt: index.html: Galerie bleibt exakt wie vorher, darunter der neue Button Alle Referenzen ansehen 
+        → verlinkt auf referenzen.html.
+        referenzen.html: enthält nur ein leeres div class="gallery" id="referenzen-grid" Kein einziges Projekt steht im HTML.
+        JSFIle.js: hier liegt jetzt das eigentliche Herzstück, die projectData-Liste 
+        – ein Array mit einem Objekt pro Projekt. Beim Laden der Seite läuft renderReferenzen() 
+        einmal durch diese Liste und baut für jedes Objekt automatisch die passende Kachel 
+        (Bild, Video-Vorschau oder Mehrbild-Galerie) und hängt sie ins #referenzen-grid ein. 
+        → Ein neues Projekt hinzufügen heißt für dich künftig nur: ein neues Objekt in die Liste schreiben, z. B. -- >
+
+
+  <!-- ── Topbar / Navigation ───────────────────────────────── -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="home-button">
+        <img src="./logo.svg" alt="Alcedo Logo" class="inline-logo"> Alcedo Media
+      </a>
+      <ul class="nav">
+        <li><a href="index.html#contacting">Kontakt</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── Referenzen-Übersicht ─────────────────────────────── -->
+  <section id="referenzen-page">
+    <p class="section-label-mid" style="margin-top: 2rem;">Alle Referenzen</p>
+
+    <div class="gallery" id="referenzen-grid">
+      <!-- Wird automatisch von JSFIle.js aus der projectData-Liste befüllt -->
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 Alcedo Media</p>
+      <div class="footer-links">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="https://www.instagram.com/ariusha_wbr/" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── YouTube-Modal (identisch zu index.html) ──────────── -->
+  <div id="youtube-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <div class="video-container">
+        <div id="youtube-consent" class="youtube-consent">
+          <p>Dieses Video wird von YouTube geladen.
+            Dabei können personenbezogene Daten an Google übertragen werden.</p>
+          <button id="youtube-consent-btn">Video laden</button>
+        </div>
+        <iframe id="youtube-iframe"
+          src=""
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p id="youtube-caption" class="video-caption"></p>
+    </div>
+  </div>
+
+  <!-- ── Bild-Lightbox (identisch zu index.html) ──────────── -->
+  <div id="image-lightbox">
+    <div class="lightbox-content">
+      <span class="lightbox-close">&times;</span>
+      <img id="lightbox-img" src="" alt="">
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+      <div id="lightbox-nav" style="display:none;">
+        <button id="lb-prev">&#8249;</button>
+        <span id="lb-counter"></span>
+        <button id="lb-next">&#8250;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Scripts ───────────────────────────────────────────── -->
+  <script src="JSFIle.js"></script>
+
+</body>
+</html>

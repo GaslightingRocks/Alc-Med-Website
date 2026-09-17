@@ -57,7 +57,7 @@ h1, h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-} 
+}
 
 .section-label-big {
   font-size: 2.5rem;
@@ -78,7 +78,7 @@ h1, h2 {
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
-.section-label-mid-strong {
+.section-label-mid+ {
   font-size: 1.5rem;
   text-align: center;
   letter-spacing: 0.2em;
@@ -91,6 +91,34 @@ h1, h2 {
 /* Fließtext Biografie */
 .text-bio {
   color: white;
+}
+
+/* Leistungen – Listentext */
+.text-leist {
+  color: white;
+  font-weight: bold;
+}
+
+.leist-list {
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.leist-list li {
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+/* Lila Strich als Listenpunkt */
+.leist-list li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: rgb(180, 80, 180);
 }
 
 .impUdat{
@@ -228,6 +256,27 @@ h1, h2 {
   background: rgba(180,80,180,0.2);
 }
 
+/* Hamburger-Button (nur mobil sichtbar, siehe Responsive) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
 
 /* Hamburger → X Animation */
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -258,8 +307,17 @@ h1, h2 {
 }
 /* ── 4. Hero-Video ────────────────────────────────────────── */
 
-/* Globaler Fallback für alle sonstigen Videos */
 
+/* Globaler Fallback für alle sonstigen Videos */
+video {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgb(60, 30, 60);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
 
 /* Globaler Fallback für alle Bilder */
 img {
@@ -376,7 +434,7 @@ section + section {
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: clamp(12px, 2vw, 32px);
+  gap: 50px;
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -471,6 +529,11 @@ section + section {
   opacity: 0;
 }
 
+
+.gallery-more {
+  text-align: center;
+  margin-top: 2rem;
+}
 
 /* ── 8. Partner-Logos (Kunden) ────────────────────────────── */
 
@@ -578,6 +641,17 @@ section + section {
   line-height: 1.7;
 }
 
+.cta-btn {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  background: #2a0e29;
+  border: 1px solid rgba(180, 80, 180, 0.4);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
 
 .cta-btn:hover {
   background: #3d1540;
@@ -689,7 +763,6 @@ section + section {
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 0 50px rgb(87, 38, 87);
-  position: relative; /* WICHTIG für Overlay */
 }
 
 .video-container iframe {
@@ -894,7 +967,9 @@ footer {
   border-radius: 6px;
 }
 
-
+.video-container {
+  position: relative; /* WICHTIG für Overlay */
+}
 
 
 /* ── Kopf Logo Animation ── */
@@ -922,7 +997,7 @@ footer {
 }
 .eye {
   opacity: 0;
-  animation: eyefadeIn 0.5s ease-in 1s forwards;
+  animation: fadeIn 0.5s ease-in 1s forwards;
 }
 
 /* Keyframes: Linien zeichnen */
@@ -941,7 +1016,7 @@ footer {
 }
 
 /* Keyframes: Augen einblenden */
-@keyframes eyefadeIn {
+@keyframes fadeIn {
   to {
     opacity: 1;
   }
