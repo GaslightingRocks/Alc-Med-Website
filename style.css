@@ -65,18 +65,19 @@ h1, h2 {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: white;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 600;
 }
 
 .section-label-mid {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 5vw, 2rem);
   text-align: center;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: white;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 600;
+  color: white;
+  animation: cardFadeIn 4s linear 1s both;
 }
 .section-label-mid+ {
   font-size: 1.5rem;
@@ -86,6 +87,31 @@ h1, h2 {
   color: white;
   margin-bottom: 1.5rem;
   font-weight: 1000;
+}
+
+/* ── Hero Untertitel (Subheadline) ──────────────────────── */
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 400;
+  letter-spacing: 0.25em; /* Schöne Weite für den edlen Look */
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75); /* Dezent gedimmtes Weiß */
+  text-align: center;
+  margin-top: -0.5rem;
+  margin-bottom: 2.5rem;
+  
+  /* Sanfte Einblend-Animation, die startet, wenn der Text-Reveal fast fertig ist */
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroSubFade 3s ease 2s forwards;
+}
+
+@keyframes heroSubFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Fließtext Biografie */
@@ -128,6 +154,7 @@ h1, h2 {
   margin-bottom: 1rem;
 
 }
+
 
 
 /* ── 3. Navigation / Topbar ───────────────────────────────── */
@@ -187,6 +214,7 @@ h1, h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-bottom: 0.5rem; /* Etwas Abstand zum darunterliegenden Text */
 }
 
 .centered-logo {
@@ -412,11 +440,11 @@ section + section {
 @keyframes appear-x {
   from {
     opacity: 0;
-    transform: translateX(-100px);
+    transform: translateY(100px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
@@ -655,6 +683,7 @@ section + section {
 
 .cta-btn:hover {
   background: #3d1540;
+  transform: translateY(-2px);
 }
 
 .cta-card {
@@ -672,11 +701,30 @@ section + section {
 
 .leist-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
   margin-top: 0.5rem;
 }
 
+@keyframes cardFadeIn {
+  from {
+    opacity: 0.2; /* Startet leicht sichtbar, nicht komplett unsichtbar */
+  
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes titleFadeIn {
+  from {
+    opacity: 0.2; /* Startet leicht sichtbar, nicht komplett unsichtbar */
+  
+  }
+  to {
+    opacity: 1;
+  }
+}
 .leist-card {
   background: rgba(255, 255, 255, 0.04);
   border: 0.5px solid rgba(255, 255, 255, 0.12);
@@ -686,6 +734,14 @@ section + section {
   flex-direction: column;
   gap: 0.9rem;
   transition: border-color 0.2s, background 0.2s;
+  /* Die Scroll-Animation verknüpfen */
+  animation: titleFadeIn 4s linear 1s both;
+  will-change: opacity;
+}
+/* Optionaler Profi-Trick: Die zweite Karte kommt mit einem winzigen Delay, 
+   damit sie nacheinander einblenden */
+.leist-card:nth-child(1) {
+  animation-delay: 0.1s; /* Lässt Karte 2 ganz dezent verzögert starten */
 }
 
 .leist-card:hover {
@@ -975,8 +1031,9 @@ footer {
 /* ── Kopf Logo Animation ── */
 
 .anim-logo {
-  width: 150px; /* Oder deine gewünschte Größe */
-  height: auto;
+  /* Skaliert fließend: minimal 80px, ideal 12vw, maximal 140px */
+  width: clamp(70px, 12vw, 130px);
+  height: auto; /* Behält automatisch das Seitenverhältnis bei */
   display: block;
   margin: 0 auto;
 }
@@ -992,8 +1049,7 @@ footer {
   
   /* Animationen zuweisen */
   animation: 
-    drawLines 8s ease-out forwards, 
-    fillColor 1s ease-in 0.5s forwards; /* Startet leicht verzögert */
+  fillColor 0.4s ease-in 0.9s forwards; /* Startet leicht verzögert */
 }
 .eye {
   opacity: 0;
@@ -1056,4 +1112,87 @@ footer {
   font-size: 0.9rem;
   min-width: 60px;
   text-align: center;
+}
+
+
+ 
+
+
+
+/* ── Schräger Reveal-Effekt für den Schriftzug ────────── */
+
+.reveal-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 1rem auto;
+  text-align: center;
+  /* Zentriert den Inline-Block-Container im flexbaren Parent */
+  width: 100%;
+}
+
+.reveal-text {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0;
+  text-align: center;
+  
+  /* Farbverlauf für den Text */
+  background: linear-gradient(90deg, #ffffff 0%, #c265c2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* Der Trick: Der Text wird über einen Clip-Path schrittweise enthüllt */
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  animation: revealTextClip 2s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
+}
+
+/* Die schräge Lichtlinie/Kante, die vorauseilt */
+.reveal-beam {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: 0;
+  width: 2px;
+  background: rgba(0,0,0,0);
+  box-shadow: 0 0 15px rgb(180, 80, 180), 0 0 30px #00A8E8;
+  transform: skewX(-25deg); /* Macht die Linie schön schräg */
+  pointer-events: none;
+  
+  /* Läuft exakt synchron mit dem Aufdecken des Textes */
+  animation: revealBeamMove 2s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
+  opacity: 0;
+}
+
+/* Keyframes für das Aufdecken des Textes (von links nach rechts) */
+@keyframes revealTextClip {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Keyframes für die Bewegung der schrägen Linie */
+@keyframes revealBeamMove {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+
+  20%{
+    opacity: 0;
+  }
+  45% {
+    opacity: 1;
+  }
+  65%{
+    opacity: 0;
+  }
+
+  100% {
+    left: 90%;
+  }
 }
