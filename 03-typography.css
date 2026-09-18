@@ -1,0 +1,70 @@
+/* =============================================================
+   03-typography.css – Alcedo Media
+   -------------------------------------------------------------
+   Schrift-bezogene Basis-Styles, die auf mehreren Seiten
+   wiederverwendet werden: Überschriften, die großen Section-
+   Labels ("REFERENZEN", "ZUFRIEDENE KUNDEN" …), Fließtext-Farbe
+   und die Absatz-Styles für Impressum/Datenschutz.
+
+   Die Hero-spezifischen Texte (.hero-subtitle, .reveal-text)
+   liegen bewusst NICHT hier, sondern in 05-hero-intro.css, weil
+   sie eng mit der Logo-Animation der Startseite zusammenhängen.
+   ============================================================= */
+
+h1, h2 {
+  color: white;
+  text-align: center;
+}
+
+/* Große, breite Section-Überschrift (aktuell z. B. bei #leist
+   als leeres <p> reserviert – kann für einen künftigen Titel
+   genutzt werden) */
+.section-label-big {
+  font-size: 2.5rem;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Mittlere Section-Überschrift, z. B. "Referenzen", "Zufriedene
+   Kunden". Blendet beim Erscheinen sanft ein (Keyframe
+   "cardFadeIn", siehe 02-animations.css). */
+.section-label-mid {
+  font-size: clamp(1rem, 5vw, 2rem);
+  text-align: center;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: white;
+  animation: cardFadeIn 4s linear 1s both;
+}
+
+/* Variante von .section-label-mid mit etwas kleinerer Schrift,
+   z. B. für "Projekt starten?" im CTA-Bereich */
+.section-label-mid+ {
+  font-size: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 1.5rem;
+  font-weight: 1000;
+}
+
+/* Standard-Textfarbe für Fließtext-Blöcke (z. B. "Über mich") */
+.text-bio {
+  color: white;
+}
+
+/* Fließtext für Impressum & Datenschutz
+   ("impUdat" = Impressum Und Datenschutz) */
+.impUdat {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 1rem;
+}

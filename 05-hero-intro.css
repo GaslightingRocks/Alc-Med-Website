@@ -1,0 +1,109 @@
+/* =============================================================
+   05-hero-intro.css – Alcedo Media
+   -------------------------------------------------------------
+   Alles, was zum animierten Intro auf der Startseite gehört
+   (in der Reihenfolge, wie es im HTML erscheint):
+   1. Das SVG-Logo, das sich beim Laden "zeichnet" und einfärbt
+   2. Der Schriftzug "Alcedo Media" mit dem schrägen Licht-Reveal
+   3. Der Untertitel darunter ("Wir sind Ihr Partner …")
+
+   Die zugehörigen @keyframes (fillColor, drawLines,
+   revealTextClip, revealBeamMove, heroSubFade) liegen zentral
+   in 02-animations.css.
+   ============================================================= */
+
+/* ── 1. Logo-Zeichenanimation ─────────────────────────────── */
+
+.anim-logo {
+  /* Skaliert fließend: minimal 70px, ideal 12vw, maximal 130px */
+  width: clamp(70px, 12vw, 130px);
+  height: auto; /* Behält automatisch das Seitenverhältnis bei */
+  display: block;
+  margin: 0 auto;
+}
+
+.draw-item {
+  /* Startzustand: Keine Füllung, nur Kontur */
+  fill-opacity: 0;
+  stroke: rgba(255, 255, 255, 0.8); /* Etwas heller für besseren Kontrast */
+  stroke-width: 1;
+
+  /* Der absolut sichere Weg: Ein riesiger Wert für Dash und Offset */
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+
+  /* Färbt die Flächen ein (Kontur-Zeichnen per "drawLines" ist
+     aktuell nirgends zugewiesen, siehe Hinweis in
+     02-animations.css) */
+  animation:
+  fillColor 0.4s ease-in 0.9s forwards; /* Startet leicht verzögert */
+}
+
+.eye {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in 1s forwards;
+}
+
+/* ── 2. Schräger Text-Reveal für den Schriftzug ───────────── */
+
+.reveal-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 1rem auto;
+  text-align: center;
+  /* Zentriert den Inline-Block-Container im flexbaren Parent */
+  width: 100%;
+}
+
+.reveal-text {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0;
+  text-align: center;
+
+  /* Farbverlauf für den Text */
+  background: linear-gradient(90deg, #ffffff 0%, #c265c2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Der Trick: Der Text wird über einen Clip-Path schrittweise enthüllt */
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  animation: revealTextClip 2s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
+}
+
+/* Die schräge Lichtlinie/Kante, die vorauseilt */
+.reveal-beam {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: 0;
+  width: 2px;
+  background: rgba(0,0,0,0);
+  box-shadow: 0 0 15px rgb(180, 80, 180), 0 0 30px #00A8E8;
+  transform: skewX(-25deg); /* Macht die Linie schön schräg */
+  pointer-events: none;
+
+  /* Läuft exakt synchron mit dem Aufdecken des Textes */
+  animation: revealBeamMove 2s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
+  opacity: 0;
+}
+
+/* ── 3. Hero-Untertitel ────────────────────────────────────── */
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 400;
+  letter-spacing: 0.25em; /* Schöne Weite für den edlen Look */
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75); /* Dezent gedimmtes Weiß */
+  text-align: center;
+  margin-top: -0.5rem;
+  margin-bottom: 2.5rem;
+
+  /* Sanfte Einblend-Animation, die startet, wenn der Text-Reveal fast fertig ist */
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroSubFade 3s ease 2s forwards;
+}

@@ -6,12 +6,24 @@
  <meta name="description" content="Kreative Medienproduktion aus Leidenschaft: Alcedo-Media realisiert hochwertige Foto- und Videoprojekte sowie 3D-Visualisierungen – von Produkt- und Portraitfotografie bis zu Imagefilmen und Social-Media-Content.">
   <title>Alcedo Media</title>
   <link rel="icon" type="image/svg+xml" href="./logo.svg">
-  <link rel="stylesheet" href="style.css">
+   <!-- Basis-Styles: die Reihenfolge ist bewusst gewählt und sollte
+       beim Einbinden beibehalten werden (siehe Kommentare in den
+       jeweiligen CSS-Dateien) -->
+  <link rel="stylesheet" href="./01-reset.css">
+  <link rel="stylesheet" href="./02-animations.css">
+  <link rel="stylesheet" href="./03-typography.css">
+  <link rel="stylesheet" href="./04-navigation.css">
+  <link rel="stylesheet" href="./05-hero-intro.css">
+  <link rel="stylesheet" href="./06-gallery.css">
+  <link rel="stylesheet" href="./07-content-sections.css">
+  <link rel="stylesheet" href="./08-modal-lightbox.css">
+  <link rel="stylesheet" href="./09-footer.css">
+  <!-- MUSS zuletzt geladen werden, damit die @media-Overrides greifen -->
+  <link rel="stylesheet" href="./10-responsive.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <link rel="icon" href="/Screenshot 2026-05-18 095350.png" type="image/png">
   <link rel="shortcut icon" href="/Screenshot 2026-05-18 095350.png">
 </head>
-
 <body>
 
   <!-- ── Hero-Bereich ──────────────────────────────────────── -->

@@ -1,0 +1,36 @@
+/* =============================================================
+   09-footer.css – Alcedo Media
+   -------------------------------------------------------------
+   Der Footer, der auf allen vier Seiten identisch eingebunden
+   ist (Copyright-Zeile + Links zu Impressum/Datenschutz/
+   Instagram).
+   ============================================================= */
+
+footer {
+  padding: 3rem 1rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.footer-content p {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: rgb(180, 80, 180);
+}

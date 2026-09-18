@@ -1,0 +1,69 @@
+/* =============================================================
+   01-reset.css – Alcedo Media
+   -------------------------------------------------------------
+   Ganz grundlegende Basis-Regeln, die für die GESAMTE Seite
+   gelten, unabhängig von einzelnen Komponenten:
+   - CSS-Box-Modell vereinheitlichen
+   - Grundschrift, Hintergrund, Scroll-Verhalten
+   - Fallback-Styles für <img> und <video> (damit neue Bilder/
+     Videos automatisch responsive sind, auch ohne extra Klasse)
+   - Grundlegendes Section-Layout (Breite, Abstand, Trennlinie)
+
+   Diese Datei sollte als ERSTES Stylesheet geladen werden,
+   direkt nach dem Öffnen von <head>.
+   ============================================================= */
+
+/* ── Box-Modell vereinheitlichen ──────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* Verhindert, dass die Topbar Anker-Ziele verdeckt */
+}
+
+body {
+  padding-top: 5rem; /* Platz für die fixierte Topbar */
+  font-family: sans-serif;
+  background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
+  min-height: 100vh;
+}
+
+
+/* ── Globale Medien-Fallbacks ──────────────────────────────
+   Sorgen dafür, dass jedes <img> und <video> auf der Seite von
+   sich aus responsive ist, auch wenn später mal ein Bild ohne
+   extra Wrapper-Klasse eingefügt wird. Spezifischere Regeln
+   (z. B. .gallery-item-wrapper img) überschreiben das bei
+   Bedarf gezielt in den jeweiligen Komponenten-Dateien. */
+
+video {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgb(60, 30, 60);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ── Grund-Layout für <section>-Blöcke ────────────────────── */
+
+section {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Dezente Trennlinie zwischen zwei aufeinanderfolgenden Sections */
+section + section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}

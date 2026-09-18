@@ -1,0 +1,106 @@
+/* =============================================================
+   10-responsive.css – Alcedo Media
+   -------------------------------------------------------------
+   ALLE @media-Anpassungen der Seite, gesammelt an einem Ort und
+   in der ursprünglichen Reihenfolge belassen.
+
+   ⚠️ Diese Datei muss als LETZTES Stylesheet geladen werden
+   (siehe Einbindung in den HTML-Dateien)! Nur so überschreiben
+   diese Regeln zuverlässig die Basis-Styles aus den anderen
+   Dateien, wenn der Bildschirm schmaler wird.
+   ============================================================= */
+
+/* ── Mobiles Hamburger-Menü sichtbar machen (≤ 600px) ─────── */
+@media (max-width: 600px) {
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 4rem;
+    right: 1rem;
+    flex-direction: column;
+    background: rgba(0,0,0,0.9);
+    padding: 1rem;
+    border-radius: 10px;
+
+    display: none; /* <- wichtig */
+  }
+
+  .nav.open {
+    display: flex;
+  }
+}
+
+/* ── Allgemeine Mobile-Anpassungen (≤ 600px) ──────────────── */
+@media (max-width: 600px) {
+  .nav {
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s ease;
+  }
+
+  .nav.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .home-button {
+    margin-right: 0;
+  }
+
+  /* Über-mich untereinander */
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Galerie: 2 Spalten statt auto-fit */
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .gallery-item-wrapper.video-item {
+    grid-column: span 2;
+  }
+
+  /* Lightbox auf kleinen Screens breiter */
+  .lightbox-content img {
+    max-width: 92vw;
+    max-height: 75vh;
+  }
+}
+
+/* ── Tablet & Mobile Breakpoint für die Über-Mich Sektion (≤ 800px) ── */
+@media (max-width: 800px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  /* Text und Überschrift auf Mobile zentrieren */
+  .about-title {
+    text-align: center;
+  }
+
+  /* Akzentstrich zentrieren */
+  .about-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Bild-Reihenfolge ändern: Bild erscheint auf Mobile über dem Text */
+  .about-img-wrapper {
+    order: -1;
+  }
+
+  .about-img {
+    max-width: 250px; /* Bild auf dem Handy etwas kleiner */
+  }
+}

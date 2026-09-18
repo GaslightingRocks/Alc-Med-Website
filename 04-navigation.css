@@ -1,0 +1,198 @@
+/* =============================================================
+   04-navigation.css – Alcedo Media
+   -------------------------------------------------------------
+   Alles rund um die fixierte Topbar: Logo, Home-Button, das
+   Desktop-Nav-Menü und das mobile Hamburger-Menü.
+
+   ⚠️ Hinweis zur Struktur dieser Datei:
+   ".hamburger", ".nav" und ".nav a" werden hier zweimal definiert
+   (einmal unter "Hamburger Button", einmal unter "Desktop Nav").
+   Das war schon in der ursprünglichen style.css so. Da die beiden
+   Blöcke sich zum Teil ergänzen (unterschiedliche Eigenschaften)
+   und zum Teil überschreiben, wurden BEIDE unverändert und in
+   ihrer ursprünglichen Reihenfolge übernommen, um die Optik 1:1
+   identisch zu halten. Beim nächsten Aufräumen könnten beide
+   Blöcke zu jeweils einem zusammengeführt werden – aktuell aber
+   bewusst nicht angefasst.
+
+   Die @media(max-width: 600px)-Regel, die das Hamburger-Menü
+   überhaupt erst sichtbar macht, liegt in 10-responsive.css
+   (dort sind alle @media-Blöcke der Seite gesammelt).
+   ============================================================= */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+ background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0)
+  );
+  backdrop-filter: blur(14px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  overflow: visible;
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.home-button {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: auto;
+}
+
+.inline-logo {
+  height: 2em;
+  width: auto;
+  vertical-align: middle;
+  margin-right: 0.2rem;
+}
+
+/* Logo-Block auf der Startseite (oberhalb der Topbar) */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem; /* Etwas Abstand zum darunterliegenden Text */
+}
+
+.centered-logo {
+  width: 100px;
+  height: 100px;
+}
+
+/* ── Desktop-Nav: 1. Definition ───────────────────────────── */
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 0.3rem;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  padding: 6px 10px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  background-color: #5858581f;
+  border-radius: 5px;
+}
+
+.nav a:hover {
+  transform: scale(1.05);
+}
+
+/* ── Hamburger Button: 1. Definition ──────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 2px;
+  background: white;
+  transition: 0.3s;
+}
+
+/* ── Desktop-Nav: 2. Definition (siehe Hinweis im Datei-Kopf) ── */
+.nav {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.nav a:hover {
+  background: rgba(180,80,180,0.2);
+}
+
+/* ── Hamburger Button: 2. Definition (nur mobil sichtbar) ─── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hamburger → X Animation beim Öffnen (Klasse ".open" per JS) */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ── Dynamischer Navbar-Schriftzug beim Scrollen ───────────
+   Wird per JS (Klasse ".scrolled" auf .topbar) ein-/ausge-
+   blendet, siehe main.js Abschnitt "Navbar Brand Reveal". */
+
+.navbar-brand-text {
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  transition: opacity 0.4s ease, max-width 0.4s ease;
+  vertical-align: middle;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  background: linear-gradient(90deg, #ffffff 0%, #c265c2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.topbar.scrolled .navbar-brand-text {
+  opacity: 1;
+  max-width: 200px; /* Breite, die der Text benötigt */
+}

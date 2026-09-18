@@ -1,0 +1,111 @@
+/* =============================================================
+   06-gallery.css – Alcedo Media
+   -------------------------------------------------------------
+   Das Referenzen-Kachel-Raster (wird auf index.html UND
+   Referenzen.html identisch genutzt): Grid-Layout, einzelne
+   Kacheln, Video-Play-Icon-Overlay und die Bildunterschrift.
+   ============================================================= */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.gallery-item-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgb(20, 4, 20);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  height: auto;
+}
+
+.gallery-item-wrapper:hover {
+  box-shadow: 0 0 50px rgb(87, 38, 87);
+}
+
+/* Video-Items belegen 2 Spalten */
+.gallery-item-wrapper.video-item {
+  grid-column: span 2;
+}
+
+/* Bild-Items: Zoom-Cursor signalisiert Klickbarkeit */
+.gallery-item-wrapper.image-item {
+  cursor: zoom-in;
+}
+
+/* Medien innerhalb der Galerie */
+.gallery-item-wrapper img,
+.gallery-item-wrapper video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+}
+
+.gallery-item-wrapper.video-item img,
+.gallery-item-wrapper.video-item video {
+  aspect-ratio: 16 / 9;
+}
+
+/* Bildunterschrift – standardmäßig unten versteckt */
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.1rem 1rem 1rem;
+  color: white;
+  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+  font-weight: 200;
+  text-shadow: 2px 2px 10px rgb(16, 16, 16);
+  transform: translateY(70%);
+}
+
+/* Play-Button Overlay für Video-Vorschauen */
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.play-icon::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+  margin-left: 3px;
+}
+
+.gallery-item-wrapper:hover .play-icon {
+  opacity: 0;
+}
+
+/* "Alle Referenzen ansehen"-Button unter der Startseiten-Galerie */
+.gallery-more {
+  text-align: center;
+  margin-top: 2rem;
+}

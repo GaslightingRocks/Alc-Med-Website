@@ -1,0 +1,162 @@
+/* =============================================================
+   02-animations.css – Alcedo Media
+   -------------------------------------------------------------
+   Zentrale Sammelstelle für ALLE @keyframes-Definitionen der
+   Seite, plus die kleinen Utility-Klassen, die direkt eine
+   Animation zuweisen (.animation, .blende-in).
+
+   WARUM eine eigene Datei?
+   In CSS gilt: Wenn zwei @keyframes-Regeln denselben Namen
+   haben, gewinnt für ALLE Verwendungen dieses Namens die Regel,
+   die zuletzt im finalen Stylesheet steht – unabhängig davon,
+   welches Element sie referenziert. Indem alle Keyframes hier
+   an einem Ort in ihrer ursprünglichen Reihenfolge stehen, ist
+   das Verhalten der Seite exakt identisch zur alten, einzelnen
+   style.css – ganz egal, in welcher Reihenfolge die anderen
+   CSS-Dateien eingebunden werden.
+
+   ⚠️ Hinweis (kein neuer Fehler, nur sichtbar gemacht):
+   Es gibt zwei @keyframes mit dem Namen "fadeIn" (weiter unten
+   markiert). Die ZWEITE Definition (für die Logo-Augen ".eye")
+   überschreibt die erste (für ".contact-form") komplett – dadurch
+   animiert ".contact-form" aktuell effektiv nur die Opacity,
+   nicht das eigentlich in der ersten Regel gemeinte
+   translateY(20px) → 0. Das war schon in der alten style.css so.
+   Falls das nicht beabsichtigt ist: einer der beiden Regeln einen
+   eigenen Namen geben (z. B. "fadeInUp" für das Kontaktformular)
+   und die zugehörige animation-Eigenschaft in
+   07-content-sections.css entsprechend anpassen.
+   ============================================================= */
+
+/* Sanftes Einblenden des Hero-Untertitels (.hero-subtitle) */
+@keyframes heroSubFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 1. Definition von "fadeIn" – gedacht für .contact-form */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Einblende-Animation für den Seitentitel (Klasse .blende-in) */
+@keyframes blende {
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.blende-in {
+  animation: blende 1s linear;
+}
+
+/* Scroll-Animation: Elemente schweben beim Scrollen von unten
+   ein. Wird per Klasse ".animation" auf beliebige Elemente
+   gelegt (z. B. Galerie-Kacheln, About-Section). */
+@keyframes appear-x {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animation {
+  animation: appear-x linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+  will-change: transform, opacity;
+}
+
+/* Einblend-Animation für die Section-Labels (z. B. "Referenzen") */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0.2; /* Startet leicht sichtbar, nicht komplett unsichtbar */
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Einblend-Animation für die Leistungs-Karten (.leist-card).
+   Inhaltlich identisch zu "cardFadeIn" oben, aber unter eigenem
+   Namen, damit beide unabhängig voneinander eingesetzt werden
+   können. */
+@keyframes titleFadeIn {
+  from {
+    opacity: 0.2; /* Startet leicht sichtbar, nicht komplett unsichtbar */
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Zeichnet die Konturlinien des Logos nach. Aktuell wird dieser
+   Keyframe nirgends per "animation:" zugewiesen (.draw-item nutzt
+   nur "fillColor" weiter unten) – bleibt unverändert stehen,
+   falls er noch gebraucht wird. */
+@keyframes drawLines {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Füllt die Logo-Flächen mit Farbe und blendet die Kontur aus */
+@keyframes fillColor {
+  to {
+    fill-opacity: 1;
+    stroke-opacity: 0;
+  }
+}
+
+/* 2. Definition von "fadeIn" – gedacht für die Logo-Augen (.eye).
+   Gewinnt aktuell gegen die erste Definition oben (siehe
+   Hinweis im Datei-Kopf). */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Deckt den Schriftzug "Alcedo Media" von links nach rechts auf */
+@keyframes revealTextClip {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Bewegt die schräge Lichtlinie synchron zum Text-Reveal */
+@keyframes revealBeamMove {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 0;
+  }
+  100% {
+    left: 90%;
+  }
+}
