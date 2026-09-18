@@ -239,3 +239,19 @@ document.addEventListener('DOMContentLoaded', () => {
   renderReferenzen();
 
 });
+
+
+/* ── Navbar Brand Reveal beim Scrollen ─────────────────── */
+
+  const topbar = document.querySelector('.topbar');
+
+  if (topbar) {
+    window.addEventListener('scroll', () => {
+      // Wenn weiter als 150px gescrollt wurde, Klasse hinzufügen
+      if (window.scrollY > 300) {
+        topbar.classList.add('scrolled');
+      } else {
+        topbar.classList.remove('scrolled');
+      }
+    });
+  }
