@@ -21,6 +21,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem; /* Verhindert, dass die Topbar Anker-Ziele verdeckt */
+  background: rgb(0, 0, 0);
 }
 
 body {
@@ -28,6 +29,7 @@ body {
   font-family: sans-serif;
   background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 
