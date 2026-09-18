@@ -29,7 +29,6 @@ body {
   font-family: sans-serif;
   background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
   min-height: 100vh;
-  min-height: 100dvh;
 }
 
 
