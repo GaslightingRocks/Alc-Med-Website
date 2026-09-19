@@ -21,7 +21,6 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem; /* Verhindert, dass die Topbar Anker-Ziele verdeckt */
-   overscroll-behavior-y: none;
 }
 
 body {
@@ -31,7 +30,6 @@ body {
   background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
   min-height: 100vh;
   overflow: hidden;
-    overscroll-behavior-y: none;
 }
 
 
