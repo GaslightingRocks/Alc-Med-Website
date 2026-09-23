@@ -113,9 +113,12 @@
 }
 
 .lightbox-content {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
+ position: relative;
+ display: flex;
+ flex-direction: column;
+ align-items: center; /* zentriert Bild, Unterschrift & Nav einheitlich */
+ max-width: 90vw;
+ max-height: 90vh;
 }
 
 /* ↓ Bildgröße anpassen: max-width & max-height nach Wunsch ändern */
@@ -124,6 +127,7 @@
   max-height: 70vh;
   width: auto;
   height: auto;
+  display: block;
   border-radius: 10px;
   box-shadow: 0 0 60px rgb(87, 38, 87);
   object-fit: contain;
@@ -150,7 +154,7 @@
   color: rgba(255, 255, 255, 0.85);
   font-size: 1.1rem;
   font-weight: 600;
-  margin-top: 0.75rem;
+  margin-top: 0.8rem;
 }
 
 /* Vor/Zurück-Navigation, nur bei Mehrbild-Galerien sichtbar
