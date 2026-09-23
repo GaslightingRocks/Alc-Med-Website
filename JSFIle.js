@@ -90,12 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('lightbox-caption').textContent = item.caption || '';
 
     const nav = document.getElementById('lightbox-nav');
+    const lightboxEl = document.getElementById('image-lightbox');
     if (lbImages.length > 1) {
       nav.style.display = 'flex';
+       lightboxEl.classList.add('has-nav');
       document.getElementById('lb-counter').textContent =
         (lbIndex + 1) + ' / ' + lbImages.length;
     } else {
       nav.style.display = 'none';
+       lightboxEl.classList.remove('has-nav');
     }
   }
 
@@ -193,13 +196,12 @@ document.addEventListener('DOMContentLoaded', () => {
   ───────────────────────────────────────────────────────── */
 
   const projectData = [
-    { type: 'video',   thumb: './KBF Jerus.webp',    youtube: '0O08ParzMEc?si=DoXPtKa6760mO6k_', caption: 'Bei AP-Film an der gesamten Produktion mitgewirkt' },
-    { type: 'video',   thumb: './KK RL.webp',        youtube: 'JMG1xBxL0fE?si=UpP2_S_4k72Jt41C',  caption: 'Bei AP-Film an der gesamten Produktion mitgewirkt' },
+    { type: 'video',   thumb: './KBF Jerus.webp',    youtube: '0O08ParzMEc?si=DoXPtKa6760mO6k_', caption: 'Mitwirkung an der gesamten Produktion bei AP-Film, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung' },
+    { type: 'video',   thumb: './KK RL.webp',        youtube: 'JMG1xBxL0fE?si=UpP2_S_4k72Jt41C',  caption: 'Mitwirkung an der gesamten Produktion bei AP-Film, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung' },
     { type: 'video',   thumb: './911MilThum.png',    youtube: 'L6qSjLmOwjU?si=tO8hRNcLg51GVo6A',  caption: 'Bei AP-Film in der Postproduktion mitgewirkt' },
     { type: 'gallery', thumb: './WeddingThumb.webp', images: ['./Wedding8.webp', './Wedding.webp', './Wedding3.webp', './Wedding4.webp', './Wedding2.webp', './Wedding7.webp', './Wedding5.webp'] },
-    { type: 'image',   thumb: './Tripsdrill.jpg' },
+    { type: 'image',   thumb: './Tripsdrill.jpg', caption: "Erlebnispark Tripsdrill. Keine direkte geschäftliche Verbindung oder Beauftragung durch Tripsdrill"},
     { type: 'gallery', thumb: './Lak.webp',          images: ['./1.jpg', './2.jpg', './3.jpg', './5.jpg', './6.jpg', './LakÖl.png'] },
-    { type: 'image',   thumb: './Tübi.jpg' },
     // ↓ neues Projekt einfach hier als weiteres Objekt anhängen, z.B.:
     // { type: 'image', thumb: './NeuesProjekt.jpg' },
   ];

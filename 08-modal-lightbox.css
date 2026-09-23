@@ -47,7 +47,7 @@
 .video-container {
   position: relative;
   padding-bottom: 56.25%; /* 9 ÷ 16 = 0.5625 */
-  
+
   height: 0;
   overflow: hidden;
   border-radius: 10px;
@@ -133,6 +133,9 @@
   box-shadow: 0 0 60px rgb(87, 38, 87);
   object-fit: contain;
 }
+#image-lightbox.has-nav .lightbox-content img {
+  max-height: min(70vh, calc(90vh - 150px));
+}
 
 .lightbox-close {
   position: absolute;
@@ -172,13 +175,16 @@
   background: rgba(255,255,255,0.08);
   border: 0.5px solid rgba(255,255,255,0.25);
   color: white;
-  font-size: 2rem;
+  font-size: 1.3rem; /* an Icon-Glyphen angepasst, statt an die alten Zeichen */
   width: 48px;
   height: 48px;
   border-radius: 50%;
   cursor: pointer;
   line-height: 1;
   transition: background 0.2s;
+  display: flex;              
+  align-items: center;        
+  justify-content: center;    
 }
 
 #lb-prev:hover, #lb-next:hover {
