@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { type: 'video',   thumb: './KK RL.webp',        youtube: 'JMG1xBxL0fE?si=UpP2_S_4k72Jt41C',  caption: 'Bessere Arbeitsbedingungen, mehr Gehalt, mehr Wertschätzung – das fordert die stern-Bundestagspetition: Pflege braucht Würde.\n\n~Ari wirkte an der gesamten Produktion bei AP-Film, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung' },
     { type: 'video',   thumb: './911MilThum.png',    youtube: 'L6qSjLmOwjU?si=tO8hRNcLg51GVo6A',  caption: '911 MILLENNIUM haben das größte Buch der Welt über den 911er Porsche geschaffen – exklusiv, streng limitiert und nummeriert.\n\n~Ari hat bei AP-Film in der Postproduktion mitgewirkt' },
     { type: 'gallery', thumb: './WeddingThumb.webp', images: ['./Wedding8.webp', './Wedding.webp', './Wedding3.webp', './Wedding4.webp', './Wedding2.webp', './Wedding7.webp', './Wedding5.webp'] },
-    { type: 'image',   thumb: './Tripsdrill.jpg', caption: "Erlebnispark Tripsdrill. Keine direkte geschäftliche Verbindung oder Beauftragung durch Tripsdrill"},
+    { type: 'image',   thumb: './Tripsdrill.jpg', caption: "Erlebnispark Tripsdrill, Achterbahn. \n\n *Keine direkte geschäftliche Verbindung oder Beauftragung durch Tripsdrill"},
     { type: 'gallery', thumb: './Lak.webp',          images: ['./1.jpg', './2.jpg', './3.jpg', './5.jpg', './6.jpg', './LakÖl.png'] },
     // ↓ neues Projekt einfach hier als weiteres Objekt anhängen, z.B.:
     // { type: 'image', thumb: './NeuesProjekt.jpg' },
