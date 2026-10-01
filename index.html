@@ -253,53 +253,59 @@
     </div>
   </footer>
 
-
   <!-- ── YouTube-Modal ─────────────────────────────────────── -->
-<div id="youtube-modal" class="modal">
-  <div class="modal-content">
+  <div id="youtube-modal" class="modal">
+    <div class="viewer-panel">
+      <span class="close-btn">&times;</span>
+      <div class="viewer-scroll">
 
-    <span class="close-btn">&times;</span>
+        <div class="viewer-media">
+          <div class="video-container">
+            <div id="youtube-consent" class="youtube-consent">
+              <p>Dieses Video wird von YouTube geladen.
+                Dabei können personenbezogene Daten an Google übertragen werden.</p>
+              <button id="youtube-consent-btn">Video laden</button>
+            </div>
+            <iframe id="youtube-iframe"
+              src=""
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
 
-    <div class="video-container">
+        <div class="viewer-text">
+          <p id="youtube-caption" class="video-caption"></p>
+        </div>
 
-      <div id="youtube-consent" class="youtube-consent">
-        <p>Dieses Video wird von YouTube geladen.
-          Dabei können personenbezogene Daten an Google übertragen werden.</p>
-        <button id="youtube-consent-btn">Video laden</button>
       </div>
-
-      <iframe id="youtube-iframe"
-        src=""
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen>
-      </iframe>
-
     </div>
-
-    <p id="youtube-caption" class="video-caption"></p>
-
   </div>
-</div>
-        
-       
 
   <!-- ── Bild-Lightbox ─────────────────────────────────────── -->
-<div id="image-lightbox">
-  <div class="lightbox-content">
-    <span class="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="" alt="">
-    <p class="lightbox-caption" id="lightbox-caption"></p>
+  <div id="image-lightbox">
+    <div class="viewer-panel">
+      <span class="lightbox-close">&times;</span>
+      <div class="viewer-scroll">
 
-    <!-- Navigation (nur bei Galerien sichtbar) -->
-    <div id="lightbox-nav" style="display:none;">
-      <button id="lb-prev" aria-label="Vorheriges Bild"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
-      <span id="lb-counter"></span>
-      <button id="lb-next" aria-label="Nächstes Bild"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+        <div class="viewer-media">
+          <img id="lightbox-img" src="" alt="">
+          <!-- Navigation (nur bei Galerien sichtbar) -->
+          <div id="lightbox-nav" style="display:none;">
+            <button id="lb-prev" aria-label="Vorheriges Bild"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+            <span id="lb-counter"></span>
+            <button id="lb-next" aria-label="Nächstes Bild"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+          </div>
+        </div>
+
+        <div class="viewer-text">
+          <p class="lightbox-caption" id="lightbox-caption"></p>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
-
   <!-- ── Scripts ───────────────────────────────────────────── -->
 
   <script src="JSFIle.js"></script>

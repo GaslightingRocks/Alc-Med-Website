@@ -1,57 +1,118 @@
 /* =============================================================
    08-modal-lightbox.css – Alcedo Media
-   -------------------------------------------------------------
-   Die beiden Overlays der Seite:
-   1. YouTube-Modal inkl. Zwei-Klick-Datenschutz-Hinweis
-   2. Bild-Lightbox inkl. Vor/Zurück-Navigation für Galerien
-
-   Beide werden per JS (main.js) über CSS-Klassen ein-/ausge-
-   blendet (".modal" → flex, "#image-lightbox.active" → flex).
+   Gemeinsames Panel-Design für YouTube-Modal und Bild-Lightbox.
    ============================================================= */
 
-/* ── YouTube-Modal ─────────────────────────────────────────── */
-
-.modal {
-  display: none; /* per JS auf flex setzen zum Öffnen */
+/* ── Backdrop (Overlay) ───────────────────────────────────── */
+.modal,
+#image-lightbox {
+  display: none;               /* .modal: per JS auf flex; Lightbox: per .active */
   position: fixed;
-  z-index: 2000; /* über Topbar (z-index: 1000) */
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
   justify-content: center;
   align-items: center;
 }
 
-.modal-content {
-  position: relative;
-  width: 90%;
-  max-width: 1000px;
+#image-lightbox.active {
+  display: flex;
 }
 
-.close-btn {
+/* ── Panel (die abgerundete Fläche) ───────────────────────── */
+.viewer-panel {
+  position: relative;
+  width: min(100%, 1000px);
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(186, 126, 186, 0.3);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Ohne Text: Panel schmaler, damit das Bild nicht verloren wirkt */
+.viewer-panel:has(.viewer-text p:empty) {
+  width: min(100%, 760px);
+}
+
+/* Scrollbarer Innenbereich + Umbruch-Logik */
+.viewer-scroll {
+  display: flex;
+  flex-wrap: wrap;             /* Text rutscht unter das Medium, wenn der Platz fehlt */
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem 2rem 2rem;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+
+/* Medienbereich (Bild oder Video) */
+.viewer-media {
+  flex: 1 1 420px;             /* ← Mindestbreite, bevor der Text umbricht */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Textbereich */
+.viewer-text {
+  flex: 1 1 240px;             /* ← Mindestbreite des Textes */
+  min-width: 0;
+}
+
+/* Textbereich ausblenden, wenn keine Unterschrift da ist */
+.viewer-text:has(p:empty) {
+  display: none;
+}
+
+.viewer-text p {
+  margin: 0;
+  color: rgb(0, 0, 0);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* ── Schließen-Kreuz (oben rechts im Panel) ───────────────── */
+.close-btn,
+.lightbox-close {
   position: absolute;
-  top: -40px;
-  right: 0;
-  color: white;
-  font-size: 40px;
-  font-weight: bold;
+  top: 0.6rem;
+  right: 1.1rem;
+  z-index: 20;
+  color: rgb(0, 0, 0);
+  font-size: 2rem;
+  line-height: 1;
   cursor: pointer;
   transition: color 0.2s ease;
-  line-height: 1;
 }
 
-.close-btn:hover {
+.close-btn:hover,
+.lightbox-close:hover {
   color: rgb(180, 80, 180);
 }
 
-/* 16:9 Format via padding-bottom Trick */
+/* ── Bild ─────────────────────────────────────────────────── */
+#lightbox-img {
+  width: auto;                 /* überschreibt das globale width: 100% */
+  max-width: 100%;
+  height: auto;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* ── Video (16:9) ─────────────────────────────────────────── */
 .video-container {
   position: relative;
-  padding-bottom: 56.25%; /* 9 ÷ 16 = 0.5625 */
-
+  width: 100%;
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   border-radius: 10px;
-  box-shadow: 0 0 50px rgb(87, 38, 87);
 }
 
 .video-container iframe {
@@ -61,22 +122,11 @@
   height: 100%;
 }
 
-.video-caption {
-  margin-top: 1.2rem;
-  text-align: center;
-  color: rgba(255,255,255,0.75);
-  font-size: 0.95rem;
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Zwei-Klick-Consent-Overlay, das über dem Video liegt, bis auf
-   "Video laden" geklickt wird (DSGVO-konforme YouTube-Einbindung) */
+/* Zwei-Klick-Consent-Overlay */
 .youtube-consent {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0, 0, 0, 0.92);
   color: white;
   display: flex;
   flex-direction: column;
@@ -97,102 +147,36 @@
   border-radius: 6px;
 }
 
-/* ── Bild-Lightbox ─────────────────────────────────────────── */
-
-#image-lightbox {
-  display: none; /* wird per .active-Klasse auf flex gesetzt */
-  position: fixed;
-  z-index: 2000;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.92);
-  justify-content: center;
-  align-items: center;
-}
-
-#image-lightbox.active {
-  display: flex;
-}
-
-.lightbox-content {
- position: relative;
- display: flex;
- flex-direction: column;
- align-items: center; /* zentriert Bild, Unterschrift & Nav einheitlich */
- max-width: 90vw;
- max-height: 90vh;
-}
-
-/* ↓ Bildgröße anpassen: max-width & max-height nach Wunsch ändern */
-.lightbox-content img {
-  max-width: 60vw;
-  max-height: 70vh;
-  width: auto;
-  height: auto;
-  display: block;
-  border-radius: 10px;
-  box-shadow: 0 0 60px rgb(87, 38, 87);
-  object-fit: contain;
-}
-#image-lightbox.has-nav .lightbox-content img {
-  max-height: min(70vh, calc(90vh - 150px));
-}
-
-.lightbox-close {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  color: white;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  line-height: 1;
-}
-
-.lightbox-close:hover {
-  color: rgb(180, 80, 180);
-}
-
-.lightbox-caption {
-  text-align: center;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-top: 0.8rem;
-}
-
-/* Vor/Zurück-Navigation, nur bei Mehrbild-Galerien sichtbar
-   (wird per JS über #lightbox-nav ein-/ausgeblendet) */
+/* ── Vor/Zurück-Navigation (nur bei Mehrbild-Galerien) ────── */
 #lightbox-nav {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  margin-top: 0.8rem;
 }
 
 #lb-prev, #lb-next {
-  background: rgba(255,255,255,0.08);
-  border: 0.5px solid rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.5px solid rgba(255, 255, 255, 0.25);
   color: white;
-  font-size: 1.3rem; /* an Icon-Glyphen angepasst, statt an die alten Zeichen */
+  font-size: 1.3rem;
   width: 48px;
   height: 48px;
   border-radius: 50%;
   cursor: pointer;
   line-height: 1;
   transition: background 0.2s;
-  display: flex;              
-  align-items: center;        
-  justify-content: center;    
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #lb-prev:hover, #lb-next:hover {
-  background: rgba(180,80,180,0.3);
+  background: rgba(180, 80, 180, 0.3);
 }
 
 #lb-counter {
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 0.9rem;
   min-width: 60px;
   text-align: center;
