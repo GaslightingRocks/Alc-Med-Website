@@ -9,7 +9,20 @@
    ============================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
+  /* ── 0. Bilder-Schutz ─────────────────────────────────── */
 
+  // Rechtsklick-Menü nur auf Bildern/Videos/Galerie unterbinden
+  // (der Rest der Seite behält sein normales Kontextmenü).
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.closest('img, video, .gallery-item-wrapper, .lightbox-content, .about-img-wrapper, .gallery-logo')) {
+      e.preventDefault();
+    }
+  });
+
+  // Bilder nicht per Drag & Drop auf den Desktop ziehen lassen
+  document.addEventListener('dragstart', (e) => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
   /* ── 1. Galerie-Video Hover ───────────────────────────── */
 
   document.querySelectorAll('.gallery-item-wrapper').forEach(wrapper => {

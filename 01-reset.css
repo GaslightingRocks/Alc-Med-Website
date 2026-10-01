@@ -69,3 +69,19 @@ section {
 section + section {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
+/* ── Bilder-Schutz (Abschreckung) ──────────────────────────── */
+img, video {
+  -webkit-user-drag: none;      /* kein Ziehen auf den Desktop */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;  /* kein "Bild sichern"-Menü bei Langdruck (iOS) */
+}
+
+/* Klicks gehen direkt an die Kachel, nicht an das Bild selbst.
+   Rechtsklick trifft dadurch nie ein <img>, und die Lightbox
+   funktioniert weiter, weil sie auf .gallery-item-wrapper hört. */
+.gallery-item-wrapper img,
+.gallery-item-wrapper video,
+#lightbox-img {
+  pointer-events: none;
+}
