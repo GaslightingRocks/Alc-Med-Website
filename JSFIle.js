@@ -37,6 +37,36 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+  /* ── Hilfsfunktionen: Overlays mit Animation schließen ────
+     Fügt kurz die Klasse ".closing" hinzu (spielt die Ausblend-
+     Animation aus 08-modal-lightbox.css ab) und versteckt das
+     Overlay erst danach wirklich.
+     CLOSE_DURATION muss zur Animationsdauer im CSS passen.
+  ───────────────────────────────────────────────────────── */
+
+  const CLOSE_DURATION =
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 200;
+  const closeTimers = new WeakMap();
+
+  function animateClose(el, onHidden) {
+    if (el.classList.contains('closing')) return; // läuft schon
+    el.classList.add('closing');
+    const timer = setTimeout(() => {
+      el.classList.remove('closing');
+      closeTimers.delete(el);
+      onHidden();
+    }, CLOSE_DURATION);
+    closeTimers.set(el, timer);
+  }
+
+  // Falls während des Ausblendens sofort wieder geöffnet wird
+  function cancelClose(el) {
+    clearTimeout(closeTimers.get(el));
+    closeTimers.delete(el);
+    el.classList.remove('closing');
+  }
+
+
   /* ── 2. YouTube Modal ─────────────────────────────────── */
 
   const youtubeModal   = document.getElementById('youtube-modal');
@@ -59,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentVideoId = link.getAttribute('data-youtube');
     const caption = link.getAttribute('data-caption') || '';
 
+    cancelClose(youtubeModal);
     youtubeCaption.textContent = caption;
     youtubeModal.style.display = 'flex';
     consentBox.style.display = 'flex';
@@ -72,10 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const closeYoutubeModal = () => {
-    youtubeModal.style.display = 'none';
-    youtubeIframe.src = '';
-    consentBox.style.display = 'flex';
-    youtubeCaption.textContent = '';
+    youtubeIframe.src = ''; // Video sofort stoppen (Ton!)
+    animateClose(youtubeModal, () => {
+      // Erst nach dem Ausblenden zurücksetzen, damit das Panel
+      // während der Animation nicht springt/leer wird
+      youtubeModal.style.display = 'none';
+      consentBox.style.display = 'flex';
+      youtubeCaption.textContent = '';
+    });
   };
 
   youtubeClose.addEventListener('click', closeYoutubeModal);
@@ -91,10 +126,17 @@ document.addEventListener('DOMContentLoaded', () => {
   let lbIndex  = 0;
 
   function openLightbox(images, startIndex) {
+    const lightboxEl = document.getElementById('image-lightbox');
     lbImages = images;
     lbIndex  = startIndex;
     renderLightbox();
-    document.getElementById('image-lightbox').classList.add('active');
+    cancelClose(lightboxEl);
+    lightboxEl.classList.add('active');
+  }
+
+  function closeLightbox() {
+    const lightboxEl = document.getElementById('image-lightbox');
+    animateClose(lightboxEl, () => lightboxEl.classList.remove('active'));
   }
 
   function renderLightbox() {
@@ -144,14 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLightbox();
   });
 
-  document.querySelector('.lightbox-close').addEventListener('click', () => {
-    document.getElementById('image-lightbox').classList.remove('active');
-  });
+  document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
 
   document.getElementById('image-lightbox').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('image-lightbox')) {
-      document.getElementById('image-lightbox').classList.remove('active');
-    }
+    if (e.target === document.getElementById('image-lightbox')) closeLightbox();
   });
 
 

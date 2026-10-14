@@ -213,11 +213,46 @@
   animation: viewerPanelIn 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* ── Schließen-Animation (Spiegelbild der Öffnen-Animation) ──
+   Wird per JS über die Klasse ".closing" ausgelöst. Das Overlay
+   wird erst nach Ablauf der Animation wirklich versteckt.
+   ACHTUNG: Dauer (0.2s) muss zu CLOSE_DURATION in JSFIle.js passen. */
+@keyframes viewerBackdropOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes viewerPanelOut {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+
+.modal.closing,
+#image-lightbox.closing {
+  animation: viewerBackdropOut 0.2s ease-in forwards;
+  pointer-events: none; /* verhindert Doppelklicks während des Ausblendens */
+}
+
+.modal.closing .viewer-panel,
+#image-lightbox.closing .viewer-panel {
+  animation: viewerPanelOut 0.2s ease-in forwards;
+}
+
 /* Wer Animationen im System reduziert hat, bekommt keine */
 @media (prefers-reduced-motion: reduce) {
   .modal,
   #image-lightbox,
-  .viewer-panel {
+  .viewer-panel,
+  .modal.closing,
+  #image-lightbox.closing,
+  .modal.closing .viewer-panel,
+  #image-lightbox.closing .viewer-panel {
     animation: none;
   }
 }
