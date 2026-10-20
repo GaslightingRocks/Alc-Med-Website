@@ -8,7 +8,10 @@
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* Gerade Spaltenzahl: Videos (span 2) hinterlassen nie eine Lücke.
+     Tablet/Mobil: siehe 10-responsive.css */
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: dense; /* füllt Lücken mit nachfolgenden Bild-Kacheln */
   gap: 20px;
   padding: 20px;
   max-width: 1200px;

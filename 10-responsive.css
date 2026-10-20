@@ -104,3 +104,12 @@
     max-width: 250px; /* Bild auf dem Handy etwas kleiner */
   }
 }
+
+/* ── Galerie auf Tablet (≤ 900px) ─────────────────────────────
+   2 Spalten: jedes Video = volle Breite, Bilder paarweise.
+   (Die 4-Spalten-Basis steht in 06-gallery.css.) */
+@media (max-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
