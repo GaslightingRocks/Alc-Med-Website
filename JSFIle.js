@@ -124,14 +124,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let lbImages = [];
   let lbIndex  = 0;
+  let lbRenderToken = 0;
 
-  function openLightbox(images, startIndex) {
+  /* Bilder vorladen & vorab dekodieren: Das Bild wird erst
+     getauscht, wenn es komplett bereit ist. Dadurch gibt es kein
+     Ruckeln/Springen mehr, und bereits geladene Bilder erscheinen
+     sofort. Die Promises liegen im Cache, jedes Bild wird nur
+     einmal geladen. */
+  const imageCache = new Map();
+
+  function loadImage(src) {
+    if (!imageCache.has(src)) {
+      const img = new Image();
+      img.src = src;
+      imageCache.set(src, img.decode().catch(() => {}).then(() => img));
+    }
+    return imageCache.get(src);
+  }
+
+  async function openLightbox(images, startIndex) {
     const lightboxEl = document.getElementById('image-lightbox');
     lbImages = images;
     lbIndex  = startIndex;
-    renderLightbox();
+
+    // Erst öffnen, wenn das erste Bild bereit ist (sonst blitzt kurz
+    // das Bild der zuvor geöffneten Galerie auf)
+    await renderLightbox();
     cancelClose(lightboxEl);
     lightboxEl.classList.add('active');
+
+    // Restliche Galerie-Bilder im Hintergrund vorladen
+    images.forEach(item => loadImage(item.src));
   }
 
   function closeLightbox() {
@@ -139,8 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
     animateClose(lightboxEl, () => lightboxEl.classList.remove('active'));
   }
 
-  function renderLightbox() {
+  async function renderLightbox() {
+    const token = ++lbRenderToken;
     const item = lbImages[lbIndex];
+
+    await loadImage(item.src);
+    if (token !== lbRenderToken) return; // zwischenzeitlich weitergeklickt
+
     document.getElementById('lightbox-img').src = item.src;
     document.getElementById('lightbox-caption').textContent = item.caption || '';
 
@@ -148,14 +176,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxEl = document.getElementById('image-lightbox');
     if (lbImages.length > 1) {
       nav.style.display = 'flex';
-       lightboxEl.classList.add('has-nav');
+      lightboxEl.classList.add('has-nav');
       document.getElementById('lb-counter').textContent =
         (lbIndex + 1) + ' / ' + lbImages.length;
+
+      // Nachbarn vorladen, damit der nächste Klick sofort greift
+      loadImage(lbImages[(lbIndex + 1) % lbImages.length].src);
+      loadImage(lbImages[(lbIndex - 1 + lbImages.length) % lbImages.length].src);
     } else {
       nav.style.display = 'none';
-       lightboxEl.classList.remove('has-nav');
+      lightboxEl.classList.remove('has-nav');
     }
   }
+
+  // Beim Überfahren einer Galerie-Kachel (Desktop) schon das erste
+  // große Bild laden – beim Klick ist es dann meist schon da.
+  document.addEventListener('mouseover', (e) => {
+    const tile = e.target.closest('.gallery-item-wrapper.image-item');
+    if (!tile || !tile.dataset.gallery) return;
+    try {
+      const first = JSON.parse(tile.dataset.gallery)[0];
+      if (first) loadImage(first.src);
+    } catch (err) { /* ungültiges JSON wird beim Klick gemeldet */ }
+  });
 
   // Event-Delegation: greift auch für Kacheln, die referenzen.html
   // erst nach dem Laden per JS in die Seite rendert.
@@ -248,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const projectData = [
     { type: 'video',   thumb: './KBF Jerus.webp',    youtube: '0O08ParzMEc?si=DoXPtKa6760mO6k_', caption: '2020 wurde der Song Jerusalema von Master KG durch selbstaufgenommene Tanzvideos zu einem weltweiten viralen Hit. Dieses Videos ist als teil dieser Challange entstanden.\n\n~Ari wirkte an der gesamten Produktion bei AP-Film mit, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung'},
-    { type: 'video',   thumb: './KK RL.webp',        youtube: 'JMG1xBxL0fE?si=UpP2_S_4k72Jt41C',  caption: 'Die Kreiskliniken Reutlingen teilen in diesem Video ihre unterstüützung der Stern Pflegepedition mit. Bessere Arbeitsbedingungen, mehr Gehalt, mehr Wertschätzung – das fordert die stern-Bundestagspetition.\n\n~Ari wirkte an der gesamten Produktion bei AP-Film, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung' },
+    { type: 'video',   thumb: './KK RL.webp',        youtube: 'JMG1xBxL0fE?si=UpP2_S_4k72Jt41C',  caption: 'Bessere Arbeitsbedingungen, mehr Gehalt, mehr Wertschätzung – das fordert die stern-Bundestagspetition: Pflege braucht Würde.\n\n~Ari wirkte an der gesamten Produktion bei AP-Film, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung' },
     { type: 'video',   thumb: './911MilThum.png',    youtube: 'L6qSjLmOwjU?si=tO8hRNcLg51GVo6A',  caption: '911 MILLENNIUM haben das größte Buch der Welt über den 911er Porsche geschaffen – exklusiv, streng limitiert und nummeriert.\n\n~Ari hat bei AP-Film in der Postproduktion mitgewirkt' },
     { type: 'gallery', thumb: './WeddingThumb.webp', images: ['./Wedding8.webp', './Wedding.webp', './Wedding3.webp', './Wedding4.webp', './Wedding2.webp', './Wedding7.webp', './Wedding5.webp'] },
     { type: 'image',   thumb: './Tripsdrill.jpg', caption: "Erlebnispark Tripsdrill, Achterbahn. \n\n *Keine direkte geschäftliche Verbindung oder Beauftragung durch Tripsdrill"},
