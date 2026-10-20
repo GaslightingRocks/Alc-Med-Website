@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.href = part;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.textContent = '➔ DICKMANN LEDER'; // Alternativ z.B. 'Zur Website' schreiben
+        link.textContent = 'DICKMANN LEDER'; // Alternativ z.B. 'Zur Website' schreiben
         element.appendChild(link);
       } else {
         element.appendChild(document.createTextNode(part));
