@@ -76,6 +76,16 @@
   line-height: 1.7;
   white-space: pre-line;
 }
+.viewer-text p a {
+  color: rgba(0, 0, 0, 0.55); /* Schönes Grau statt Schwarz */
+  text-decoration: underline;
+  word-break: break-all;      /* Verhindert, dass lange Links über den Rand hinausragen */
+  transition: color 0.2s ease;
+}
+
+.viewer-text p a:hover {
+  color: rgb(180, 80, 180);   /* Euer Violett beim Drüberfahren (wie beim Schließen-X) */
+}
 
 /* ── Schließen-Kreuz (oben rechts im Panel) ───────────────── */
 .close-btn,
