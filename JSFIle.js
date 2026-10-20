@@ -66,6 +66,28 @@ document.addEventListener('DOMContentLoaded', () => {
     el.classList.remove('closing');
   }
 
+// Wandelt URLs (http/https) im Text automatisch in klickbare Links um
+  function renderCaptionWithLinks(element, text) {
+    element.textContent = '';
+    if (!text) return;
+
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+
+    parts.forEach(part => {
+      if (urlRegex.test(part)) {
+        const link = document.createElement('a');
+        link.href = part;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = '➔ DICKMANN LEDER'; // Alternativ z.B. 'Zur Website' schreiben
+        element.appendChild(link);
+      } else {
+        element.appendChild(document.createTextNode(part));
+      }
+    });
+  }
+
 
   /* ── 2. YouTube Modal ─────────────────────────────────── */
 
@@ -170,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (token !== lbRenderToken) return; // zwischenzeitlich weitergeklickt
 
     document.getElementById('lightbox-img').src = item.src;
-    document.getElementById('lightbox-caption').textContent = item.caption || '';
+    renderCaptionWithLinks(document.getElementById('lightbox-caption'), item.caption);
 
     const nav = document.getElementById('lightbox-nav');
     const lightboxEl = document.getElementById('image-lightbox');
