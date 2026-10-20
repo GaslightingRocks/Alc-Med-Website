@@ -316,6 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { type: 'video',   thumb: './KK RL.webp',        youtube: 'JMG1xBxL0fE?si=UpP2_S_4k72Jt41C',  caption: 'Bessere Arbeitsbedingungen, mehr Gehalt, mehr Wertschätzung – das fordert die stern-Bundestagspetition: Pflege braucht Würde.\n\n~Ari wirkte an der gesamten Produktion bei AP-Film, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung' },
     { type: 'video',   thumb: './911MilThum.png',    youtube: 'L6qSjLmOwjU?si=tO8hRNcLg51GVo6A',  caption: '911 MILLENNIUM haben das größte Buch der Welt über den 911er Porsche geschaffen – exklusiv, streng limitiert und nummeriert.\n\n~Ari hat bei AP-Film in der Postproduktion mitgewirkt' },
     { type: 'gallery', thumb: './WeddingThumb.webp', images: ['./Wedding8.webp', './Wedding.webp', './Wedding3.webp', './Wedding4.webp', './Wedding2.webp', './Wedding7.webp', './Wedding5.webp'] },
+    { type: 'gallery', thumb: './LederDeckblatt.webp', images:['Leder1.webp','Leder2.webp','Leder3.webp','Leder4.webp'], caption: "Produktfotografie für Ledergroßhandel\nhttps://www.d-leder.com/autoleder-leder-f-auto-oldtimer/\n\n~Milian erstellte Produktfotos von Lederprodukten welche auf der Website von Dickmann Leder verwendet werden."},
     { type: 'image',   thumb: './Tripsdrill.jpg', caption: "Erlebnispark Tripsdrill, Achterbahn. \n\n *Keine direkte geschäftliche Verbindung oder Beauftragung durch Tripsdrill"},
     { type: 'gallery', thumb: './Lak.webp',          images: ['./1.jpg', './2.jpg', './3.jpg', './5.jpg', './6.jpg', './LakÖl.png'] },
     // ↓ neues Projekt einfach hier als weiteres Objekt anhängen, z.B.:
@@ -328,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     projectData.forEach(project => {
       const wrapper = document.createElement('div');
-    // Kein ".animation"-Klasse hier: Auf referenzen.html soll die
+      // Kein ".animation"-Klasse hier: Auf referenzen.html soll die
       // Scroll-Einblend-Animation nicht laufen, nur auf der Startseite.
       wrapper.className = 'gallery-item-wrapper';
 
@@ -342,11 +343,17 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       } else if (project.type === 'gallery') {
         wrapper.classList.add('image-item');
-        const galleryData = project.images.map(src => ({ src }));
+        // NEU: Hier geben wir jedem Bild in der Galerie die project.caption mit!
+        const galleryData = project.images.map(src => ({
+          src: src,
+          caption: project.caption || ''
+        }));
         wrapper.setAttribute('data-gallery', JSON.stringify(galleryData));
         wrapper.innerHTML = `<img src="${project.thumb}" alt="">`;
       } else {
         wrapper.classList.add('image-item');
+        // NEU: Auch bei Einzelbildern das data-caption Attribut setzen!
+        if (project.caption) wrapper.setAttribute('data-caption', project.caption);
         wrapper.innerHTML = `<img src="${project.thumb}" alt="">`;
       }
 
