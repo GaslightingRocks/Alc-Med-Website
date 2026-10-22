@@ -26,9 +26,10 @@
   position: relative;
   width: min(100%, 1000px);
   background: rgb(255, 255, 255);
-  border: 1px solid rgba(186, 126, 186, 0.3);
+  border: 1px solid rgba(180, 80,180, 0.3);
   border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(180, 80, 180, 0.15);
 }
 
 /* Ohne Text: Panel schmaler, damit das Bild nicht verloren wirkt */
@@ -62,8 +63,24 @@
 .viewer-text {
   flex: 1 1 240px;             /* ← Mindestbreite des Textes */
   min-width: 0;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+ 
 }
 
+.viewer-text::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 3px;
+  background: rgb(180, 80, 180);
+  border-radius: 2px;
+}
 /* Textbereich ausblenden, wenn keine Unterschrift da ist */
 .viewer-text:has(p:empty) {
   display: none;
@@ -77,7 +94,7 @@
   white-space: pre-line;
 }
 .viewer-text p a {
-  color: rgba(0, 0, 0, 0.55); /* Schönes Grau statt Schwarz */
+ color: rgb(200, 120, 200);/* Schönes lila statt Schwarz */
   text-decoration: underline;
   word-break: break-all;      /* Verhindert, dass lange Links über den Rand hinausragen */
   transition: color 0.2s ease;
