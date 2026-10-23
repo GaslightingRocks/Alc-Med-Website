@@ -313,10 +313,11 @@ document.addEventListener('DOMContentLoaded', () => {
     { type: 'video',   thumb: './KBF Jerus.webp',    youtube: '0O08ParzMEc?si=DoXPtKa6760mO6k_', caption: '2020 wurde der Song Jerusalema von Master KG durch selbstaufgenommene Tanzvideos zu einem weltweiten viralen Hit. Dieses Videos ist als teil dieser Challange entstanden.\n\n~Ari wirkte an der gesamten Produktion bei AP-Film mit, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung'},
     { type: 'video',   thumb: './KK RL.webp',        youtube: 'JMG1xBxL0fE?si=UpP2_S_4k72Jt41C',  caption: 'Bessere Arbeitsbedingungen, mehr Gehalt, mehr Wertschätzung – das fordert die stern-Bundestagspetition: Pflege braucht Würde.\n\n~Ari wirkte an der gesamten Produktion bei AP-Film, von der Planung über die Durchführung der Videoaufnahmen bis zur finalen Schnittbearbeitung' },
     { type: 'video',   thumb: './911MilThum.png',    youtube: 'L6qSjLmOwjU?si=tO8hRNcLg51GVo6A',  caption: '911 MILLENNIUM haben das größte Buch der Welt über den 911er Porsche geschaffen – exklusiv, streng limitiert und nummeriert.\n\n~Ari hat bei AP-Film in der Postproduktion mitgewirkt' },
-    { type: 'gallery', thumb: './WeddingThumb.webp', images: ['./Wedding8.webp', './Wedding.webp', './Wedding3.webp', './Wedding4.webp', './Wedding2.webp', './Wedding7.webp', './Wedding5.webp'] },
+    { type: 'gallery', thumb: './DeckHoch2.webp', images: ['./wedding4.webp', './wedding1.webp', './wedding3.webp', './wedding5.webp', './wedding7.webp', './wedding6.webp', './wedding2.webp'] },
     { type: 'gallery', thumb: './LederDeckblatt.webp', images:['Leder1.webp','Leder2.webp','Leder3.webp','Leder4.webp'], caption: "Produktfotografie für Ledergroßhandel\nhttps://www.d-leder.com/autoleder-leder-f-auto-oldtimer/\n\n~Milian erstellte Produktfotos von Lederprodukten welche auf der Website von Dickmann Leder verwendet werden."},
     { type: 'image',   thumb: './Tripsdrill.jpg', caption: "Erlebnispark Tripsdrill, Achterbahn. \n\n *Keine direkte geschäftliche Verbindung oder Beauftragung durch Tripsdrill"},
     { type: 'gallery', thumb: './Lak.webp',          images: ['./1.jpg', './2.jpg', './3.jpg', './5.jpg', './6.jpg', './LakÖl.png'] },
+    { type: 'gallery', thumb: './DeckPort.webp', images:['./l1.webp','./l2.webp', './s1.webp', './s2.webp', './wedding7.webp','./wedding5.webp' , './wedding1.webp'] , caption: "Portraitfotografie"},
     // ↓ neues Projekt einfach hier als weiteres Objekt anhängen, z.B.:
     // { type: 'image', thumb: './NeuesProjekt.jpg' },
   ];
