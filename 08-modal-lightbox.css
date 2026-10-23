@@ -128,7 +128,7 @@
   width: auto;                 /* überschreibt das globale width: 100% */
   max-width: 100%;
   height: auto;
-  max-height: 65vh;
+  max-height: 55vh;
   object-fit: contain;
   border-radius: 10px;
 }
@@ -293,3 +293,6 @@
 .viewer-panel {
   will-change: transform, opacity;
 }
+
+
+
