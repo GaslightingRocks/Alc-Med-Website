@@ -283,3 +283,13 @@
     animation: none;
   }
 }
+
+/* Zwingt den Browser, die Lightbox auf der GPU zu berechnen für butterweiche 60fps */
+.modal,
+#image-lightbox {
+  will-change: opacity;
+}
+
+.viewer-panel {
+  will-change: transform, opacity;
+}

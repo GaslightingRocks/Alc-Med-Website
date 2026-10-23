@@ -142,41 +142,37 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  /* ── 3. Bild-Lightbox ─────────────────────────────────── */
+  /* ── 3. Bild-Lightbox (Optimiert für Sofortstart) ─────── */
 
   let lbImages = [];
   let lbIndex  = 0;
   let lbRenderToken = 0;
 
-  /* Bilder vorladen & vorab dekodieren: Das Bild wird erst
-     getauscht, wenn es komplett bereit ist. Dadurch gibt es kein
-     Ruckeln/Springen mehr, und bereits geladene Bilder erscheinen
-     sofort. Die Promises liegen im Cache, jedes Bild wird nur
-     einmal geladen. */
   const imageCache = new Map();
 
   function loadImage(src) {
     if (!imageCache.has(src)) {
       const img = new Image();
       img.src = src;
-      imageCache.set(src, img.decode().catch(() => {}).then(() => img));
+      imageCache.set(src, img.promise = new Promise(resolve => {
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(img); // Läuft auch weiter, wenn ein Bild fehlschlägt
+      }));
     }
     return imageCache.get(src);
   }
 
-  async function openLightbox(images, startIndex) {
+  function openLightbox(images, startIndex) {
     const lightboxEl = document.getElementById('image-lightbox');
     lbImages = images;
     lbIndex  = startIndex;
 
-    // Erst öffnen, wenn das erste Bild bereit ist (sonst blitzt kurz
-    // das Bild der zuvor geöffneten Galerie auf)
-    await renderLightbox();
+    // 1. SOFORT öffnen, damit der Klick sich direkt responsiv anfühlt!
     cancelClose(lightboxEl);
     lightboxEl.classList.add('active');
 
-    // Restliche Galerie-Bilder im Hintergrund vorladen
-    images.forEach(item => loadImage(item.src));
+    // 2. Inhalt direkt rendern (das große Bild lädt parallel im Tag)
+    renderLightbox();
   }
 
   function closeLightbox() {
@@ -188,21 +184,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = ++lbRenderToken;
     const item = lbImages[lbIndex];
 
-    await loadImage(item.src);
-    if (token !== lbRenderToken) return; // zwischenzeitlich weitergeklickt
+    const imgElement = document.getElementById('lightbox-img');
+    const captionElement = document.getElementById('lightbox-caption');
 
-    document.getElementById('lightbox-img').src = item.src;
-    renderCaptionWithLinks(document.getElementById('lightbox-caption'), item.caption);
+    // Bild-Quelle direkt setzen, damit der Browser sofort mit dem Laden beginnt
+    imgElement.src = item.src;
+    renderCaptionWithLinks(captionElement, item.caption);
 
     const nav = document.getElementById('lightbox-nav');
     const lightboxEl = document.getElementById('image-lightbox');
+    
     if (lbImages.length > 1) {
       nav.style.display = 'flex';
       lightboxEl.classList.add('has-nav');
       document.getElementById('lb-counter').textContent =
         (lbIndex + 1) + ' / ' + lbImages.length;
 
-      // Nachbarn vorladen, damit der nächste Klick sofort greift
+      // Nachbarn im Hintergrund vorladen
       loadImage(lbImages[(lbIndex + 1) % lbImages.length].src);
       loadImage(lbImages[(lbIndex - 1 + lbImages.length) % lbImages.length].src);
     } else {
