@@ -105,5 +105,5 @@
   /* Sanfte Einblend-Animation, die startet, wenn der Text-Reveal fast fertig ist */
   opacity: 0;
   transform: translateY(10px);
-  animation: heroSubFade 3s ease 2s forwards;
+  animation: heroSubFade 3s ease 1.5s forwards;
 }
