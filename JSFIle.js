@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('dragstart', (e) => {
     if (e.target.tagName === 'IMG') e.preventDefault();
   });
+  
   /* ── 1. Galerie-Video Hover ───────────────────────────── */
 
   document.querySelectorAll('.gallery-item-wrapper').forEach(wrapper => {
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  /* ── 3. Bild-Lightbox (Optimiert für Sofortstart) ─────── */
+  /* ── 3. Bild-Lightbox (Optimiert für Sofortstart & Ladespinner) ─────── */
 
   let lbImages = [];
   let lbIndex  = 0;
@@ -186,10 +187,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const imgElement = document.getElementById('lightbox-img');
     const captionElement = document.getElementById('lightbox-caption');
+    const spinner = document.getElementById('lightbox-spinner');
 
-    // Bild-Quelle direkt setzen, damit der Browser sofort mit dem Laden beginnt
+    // 1. Spinner EINBLENDEN und Bild kurz transparent machen
+    if (spinner) spinner.style.display = 'block';
+    imgElement.style.transition = 'none'; // Verhindert Flackern
+    imgElement.style.opacity = '0';
+
+    // 2. Warten bis das Bild im Cache/geladen ist
+    await loadImage(item.src);
+    if (token !== lbRenderToken) return; // Falls zwischenzeitlich weitergeklickt wurde
+
+    // 3. Bild zuweisen und sanft einblenden, Spinner ausblenden
     imgElement.src = item.src;
     renderCaptionWithLinks(captionElement, item.caption);
+
+    if (spinner) spinner.style.display = 'none';
+    
+    // Kleiner Trick: Kurz warten, damit das Bild wirklich im DOM gerendert ist, bevor wir einfaden
+    setTimeout(() => {
+      imgElement.style.transition = 'opacity 0.3s ease';
+      imgElement.style.opacity = '1';
+    }, 10);
 
     const nav = document.getElementById('lightbox-nav');
     const lightboxEl = document.getElementById('image-lightbox');
