@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animateClose(lightboxEl, () => lightboxEl.classList.remove('active'));
   }
 
-  async function renderLightbox() {
+ async function renderLightbox() {
     const token = ++lbRenderToken;
     const item = lbImages[lbIndex];
 
@@ -189,27 +189,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const captionElement = document.getElementById('lightbox-caption');
     const spinner = document.getElementById('lightbox-spinner');
 
-    // 1. Spinner EINBLENDEN und Bild kurz transparent machen
-    if (spinner) spinner.style.display = 'block';
-    imgElement.style.transition = 'none'; // Verhindert Flackern
-    imgElement.style.opacity = '0';
+    // 1. Wir starten den Ladevorgang
+    let isInstant = false;
+    const loadingPromise = loadImage(item.src);
+    
+    // Wenn das Promise sofort auflöst, markieren wir es als "isInstant"
+    loadingPromise.then(() => { isInstant = true; });
 
-    // 2. Warten bis das Bild im Cache/geladen ist
-    await loadImage(item.src);
+    // Wir geben dem Skript 10 Millisekunden Zeit (reicht für Cache-Treffer locker aus)
+    await new Promise(r => setTimeout(r, 10));
+
+    // 2. Nur wenn das Bild wirklich noch laden muss, machen wir es transparent + Spinner an
+    if (!isInstant) {
+      spinner.style.display = 'block';
+      imgElement.style.transition = 'none'; // Fade-Out verhindern, direkt ausblenden
+      imgElement.style.opacity = '0';
+    }
+
+    // 3. Warten, bis das Bild final da ist (falls es nicht ohnehin schon da war)
+    await loadingPromise;
     if (token !== lbRenderToken) return; // Falls zwischenzeitlich weitergeklickt wurde
 
-    // 3. Bild zuweisen und sanft einblenden, Spinner ausblenden
+    // 4. Bild-Quelle und Text zuweisen
     imgElement.src = item.src;
     renderCaptionWithLinks(captionElement, item.caption);
 
-    if (spinner) spinner.style.display = 'none';
-    
-    // Kleiner Trick: Kurz warten, damit das Bild wirklich im DOM gerendert ist, bevor wir einfaden
-    setTimeout(() => {
-      imgElement.style.transition = 'opacity 0.3s ease';
+    // 5. Einblenden steuern
+    if (!isInstant) {
+      // Es musste geladen werden -> Spinner aus, sanft einfaden
+      spinner.style.display = 'none';
+      requestAnimationFrame(() => {
+        imgElement.style.transition = 'opacity 0.3s ease';
+        imgElement.style.opacity = '1';
+      });
+    } else {
+      // Es war schon im Cache -> direkt und ohne Animation sichtbar machen!
+      spinner.style.display = 'none';
+      imgElement.style.transition = 'none';
       imgElement.style.opacity = '1';
-    }, 10);
+    }
 
+    // 6. Navigation und Preloading (bleibt wie vorher)
     const nav = document.getElementById('lightbox-nav');
     const lightboxEl = document.getElementById('image-lightbox');
     
