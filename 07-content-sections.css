@@ -209,8 +209,8 @@
 .cta-btn {
   display: inline-block;
   padding: 0.9rem 2.5rem;
-  background: #2a0e29;
-  border: 1px solid rgba(180, 80, 180, 0.4);
+  background: #2a0e299d;
+  border: 1px solid rgba(180, 80, 180, 0.219);
   border-radius: 8px;
   color: white;
   font-size: 1rem;
@@ -265,12 +265,12 @@
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.432);
 }
 
 .contact-form button {
   padding: 0.9rem;
-  background: #2a0e29;
+  background: #FF7B00;
   border: 1px solid rgba(180, 80, 180, 0.4);
   color: white;
   border-radius: 8px;
@@ -279,5 +279,5 @@
 }
 
 .contact-form button:hover {
-  background: #3d1540;
+  background: #ff7b00b7;
 }
