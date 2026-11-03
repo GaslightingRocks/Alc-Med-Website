@@ -36,10 +36,9 @@ h1, h2 {
   font-size: clamp(1rem, 5vw, 2rem);
   text-align: center;
   letter-spacing: 0.15em;
-  text-transform: uppercase;
   margin-bottom: 1rem;
   font-weight: 600;
-  color: white;
+  color: rgba(255, 255, 255, 1);
   animation: cardFadeIn 4s linear 1s both;
 }
 

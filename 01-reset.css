@@ -27,9 +27,19 @@ html {
 body {
   margin: 0;
   padding-top: 5rem; /* Platz für die fixierte Topbar */
-  font-family: sans-serif;
   background: linear-gradient(75deg, rgb(0, 0, 0), rgb(50, 4, 50));
   min-height: 100vh;
+}
+
+/* Globale Schriftart für Fließtexte */
+body, p {
+  font-family: 'Syne', sans-serif;
+}
+
+/* Schriftart & Styling für Überschriften und Labels */
+h1, h2, h3, .section-label-mid, .section-label-big, .reveal-text {
+  font-family: 'Syne', sans-serif;
+  letter-spacing: 0.05em; /* Leichtes Spacing wirkt bei Syne besonders edel */
 }
 
 
