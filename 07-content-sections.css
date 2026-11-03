@@ -209,7 +209,7 @@
 .cta-btn {
   display: inline-block;
   padding: 0.9rem 2.5rem;
-  background: #2a0e299d;
+  background: #ff7b00b7;
   border: 1px solid rgba(180, 80, 180, 0.219);
   border-radius: 8px;
   color: white;
@@ -219,8 +219,7 @@
 }
 
 .cta-btn:hover {
-  background: #3d1540;
-  transform: translateY(-2px);
+  background: #FF7B00;
 }
 
 .cta-card {
