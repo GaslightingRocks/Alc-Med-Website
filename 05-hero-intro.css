@@ -36,12 +36,12 @@
      aktuell nirgends zugewiesen, siehe Hinweis in
      02-animations.css) */
   animation:
-  fillColor 0.4s ease-in 0.9s forwards; /* Startet leicht verzögert */
+  fillColor 0.4s ease-in 0.5s forwards; /* Startet leicht verzögert */
 }
 
 .eye {
   opacity: 0;
-  animation: fadeIn 0.5s ease-in 1s forwards;
+  animation: fadeIn 0.5s ease-in 0.6s forwards;
 }
 
 /* ── 2. Schräger Text-Reveal für den Schriftzug ───────────── */
@@ -70,7 +70,7 @@
 
   /* Der Trick: Der Text wird über einen Clip-Path schrittweise enthüllt */
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-  animation: revealTextClip 2s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
+  animation: revealTextClip 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
 }
 
 /* Die schräge Lichtlinie/Kante, die vorauseilt */
@@ -86,7 +86,7 @@
   pointer-events: none;
 
   /* Läuft exakt synchron mit dem Aufdecken des Textes */
-  animation: revealBeamMove 2s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
+  animation: revealBeamMove 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
   opacity: 0;
 }
 
