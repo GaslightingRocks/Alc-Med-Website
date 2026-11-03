@@ -209,7 +209,7 @@
 .cta-btn {
   display: inline-block;
   padding: 0.9rem 2.5rem;
-  background: #ff7b00b7;
+  background: #cc6300;
   border: 1px solid rgba(180, 80, 180, 0.219);
   border-radius: 8px;
   color: white;
@@ -219,7 +219,7 @@
 }
 
 .cta-btn:hover {
-  background: #FF7B00;
+  background: #964901b7;
 }
 
 .cta-card {
@@ -269,7 +269,7 @@
 
 .contact-form button {
   padding: 0.9rem;
-  background: #FF7B00;
+  background: #cc6300;
   border: 1px solid rgba(180, 80, 180, 0.4);
   color: white;
   border-radius: 8px;
@@ -278,5 +278,6 @@
 }
 
 .contact-form button:hover {
-  background: #ff7b00b7;
+  background: #964901b7;
+
 }

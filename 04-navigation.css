@@ -83,29 +83,6 @@
   height: 100px;
 }
 
-/* ── Desktop-Nav: 1. Definition ───────────────────────────── */
-.nav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 0.3rem;
-}
-
-.nav a {
-  color: white;
-  text-decoration: none;
-  font-size: clamp(0.8rem, 1.5vw, 1rem);
-  padding: 6px 10px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  white-space: nowrap;
-  background-color: #5858581f;
-  border-radius: 5px;
-}
-
-.nav a:hover {
-  transform: scale(1.05);
-}
 
 /* ── Hamburger Button: 1. Definition ──────────────────────── */
 .hamburger {
@@ -133,10 +110,9 @@
 }
 
 .nav a {
-  color: #FF7B00; /* or back to white?!*/
+  color: #ffffff; /* or back to white?!*/
   text-decoration: none;
   padding: 6px 10px;
-  background: rgba(255,255,255,0.05);
   border-radius: 6px;
   transition: 0.2s;
 }
@@ -181,7 +157,7 @@ body.menu-open .menu-overlay {
   display: block;
   width: 24px;
   height: 2px;
-  background: white;
+  background: #cc6300;
   border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
