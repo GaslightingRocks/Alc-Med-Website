@@ -145,6 +145,25 @@
   background: rgba(180,80,180,0.2);
 }
 
+
+/* abdunklung der seite bei offener hamburger menü bar*/ 
+/* Das Hintergrund-Overlay für das mobile Menü */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.692);
+  backdrop-filter: blur(5px);
+  z-index: 998; /* Unter der Topbar/Menü, aber über dem Seiteninhalt */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+}
+
+/* Wenn das Menü offen ist, wird das Overlay sichtbar */
+body.menu-open .menu-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
 /* ── Hamburger Button: 2. Definition (nur mobil sichtbar) ─── */
 .hamburger {
   display: none;

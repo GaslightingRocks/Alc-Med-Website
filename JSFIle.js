@@ -323,17 +323,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const hamburger = document.getElementById('hamburger');
   const nav = document.getElementById('nav');
-
+  const menuOverlay = document.getElementById('menuOverlay');
+  
   if (hamburger && nav) {
-    hamburger.addEventListener('click', () => {
+   const toggleMenu = () => {
       hamburger.classList.toggle('open');
       nav.classList.toggle('open');
-    });
+      document.body.classList.toggle('menu-open'); // Schaltet die Abdunklung ein/aus
+    };
+    hamburger.addEventListener('click', toggleMenu);
+    
+    if (menuOverlay) {
+      menuOverlay.addEventListener('click', toggleMenu); // Klick auf den abgedunkelten Hintergrund schließt das Menü wieder
+    }
 
     nav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
         nav.classList.remove('open');
+        document.body.classList.remove('menu-open');
       });
     });
   }

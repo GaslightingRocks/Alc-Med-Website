@@ -22,15 +22,20 @@
     top: 4rem;
     right: 1rem;
     flex-direction: column;
-    background: rgba(0,0,0,0.9);
-    padding: 1rem;
+    padding: 2rem 1.5rem;
     border-radius: 10px;
+    gap: 2rem;
 
     display: none; /* <- wichtig */
   }
 
   .nav.open {
     display: flex;
+  }
+  .nav a {
+    font-size: 1.2rem; /* Größere Schrift auf dem Handy für bessere Lesbarkeit */
+    padding: 12px 16px; /* Größere Klickfläche */
+    text-align: center;
   }
 }
 
