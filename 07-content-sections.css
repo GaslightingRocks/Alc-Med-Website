@@ -46,6 +46,40 @@
   border-color: rgba(180, 80, 180, 0.35);
 }
 
+/* Klickbare Variante (<a class="leist-card">), z. B. Webdesign →
+   webdesign.html. Optisch wie die anderen Karten, plus Hover-Lift
+   und "Mehr erfahren"-Zeile. */
+a.leist-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+a.leist-card:hover {
+  transform: translateY(-3px);
+}
+
+a.leist-card:focus-visible {
+  outline: 2px solid rgb(200, 120, 200);
+  outline-offset: 3px;
+}
+
+.leist-card-more {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: rgb(200, 120, 200);
+}
+
+.leist-card-more i {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+a.leist-card:hover .leist-card-more i {
+  transform: translateX(4px);
+}
+
 .leist-card-icon {
   width: 40px;
   height: 40px;
@@ -281,4 +315,3 @@
   background: #964901b7;
 
 }
-

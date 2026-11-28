@@ -119,3 +119,16 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ── Webdesign-Seite (≤ 600px) ────────────────────────────────
+   Karten-Button über die volle Breite, Intro etwas kompakter. */
+@media (max-width: 600px) {
+  .web-card-btn {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .web-intro {
+    font-size: 1rem;
+  }
+}

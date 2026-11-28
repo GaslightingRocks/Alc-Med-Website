@@ -1,0 +1,227 @@
+/* =============================================================
+   07b-webdesign.css – Alcedo Media
+   -------------------------------------------------------------
+   Styles, die nur webdesign.html braucht: Intro-Text, die
+   Referenzkarten (Browser-Rahmen + Screenshot + Button) und die
+   "Ihr Projekt?"-Platzhalterkarte.
+
+   Die Leistungs-Karten (.leist-card), Buttons (.cta-btn) und die
+   CTA-Karte (.cta-card) kommen aus 07-content-sections.css und
+   werden hier bewusst wiederverwendet, damit alles zusammenpasst.
+
+   Wird NACH 07-content-sections.css und VOR 10-responsive.css
+   geladen. Die @media-Regeln dazu stehen – wie gewohnt – in
+   10-responsive.css.
+   ============================================================= */
+
+/* ── Hero (Titel + Untertitel) ────────────────────────────── */
+
+.web-hero {
+  padding-top: 2rem;
+}
+
+/* ── Intro-Text unter dem Hero ────────────────────────────── */
+
+.web-intro {
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  animation: cardFadeIn 4s linear 1s both;
+}
+
+/* ── Raster für die Referenzkarten ────────────────────────── */
+
+.web-grid {
+  display: grid;
+  /* min(…, 100%) verhindert Überlaufen auf sehr schmalen Handys */
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* ── Einzelne Referenzkarte ───────────────────────────────── */
+
+.web-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgb(20, 4, 20);
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.web-card:hover {
+  background: rgba(180, 80, 180, 0.08);
+  border-color: rgba(180, 80, 180, 0.35);
+  box-shadow: 0 0 50px rgb(87, 38, 87);
+}
+
+/* Klickbarer Bereich oben: Browser-Leiste + Screenshot */
+.web-card-media {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.web-card-media:focus-visible {
+  outline: 2px solid rgb(200, 120, 200);
+  outline-offset: -2px;
+}
+
+/* Kleine Browser-Leiste (drei Punkte + Adresse) */
+.web-browser {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.55rem 0.9rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.web-dots {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  /* Zwei weitere Punkte per Schatten, spart zusätzliche Elemente */
+  box-shadow: 14px 0 0 rgba(255, 255, 255, 0.3),
+              28px 0 0 rgba(255, 255, 255, 0.3);
+  margin-right: 28px;
+}
+
+.web-url {
+  flex: 1;
+  min-width: 0;
+  padding: 0.15rem 0.7rem;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Screenshot-Fläche. Solange noch kein Screenshot-Bild existiert
+   (oder es nicht lädt), steht hier das Alcedo-Logo auf Verlauf. */
+.web-shot {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background:
+    url("./logo.svg") center / 26% no-repeat,
+    linear-gradient(135deg, rgba(180, 80, 180, 0.28), rgba(0, 52, 89, 0.55));
+}
+
+.web-shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.4s ease;
+}
+
+.web-card-media:hover .web-shot img {
+  transform: scale(1.04);
+}
+
+/* Textbereich der Karte */
+.web-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  flex: 1;
+  padding: 1.4rem 1.4rem 1.5rem;
+}
+
+.web-card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  text-align: left;
+}
+
+.web-card-desc {
+  margin: 0;
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Kleine Tags: was wurde gemacht? */
+.web-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.web-tags li {
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  background: rgba(180, 80, 180, 0.18);
+  border: 1px solid rgba(180, 80, 180, 0.35);
+  color: rgb(200, 120, 200);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+/* Button in der Karte: nutzt .cta-btn, nur kleiner und linksbündig */
+.web-card-btn {
+  align-self: flex-start;
+  padding: 0.7rem 1.6rem;
+  font-size: 0.95rem;
+}
+
+.web-card-btn i {
+  margin-left: 0.3rem;
+  vertical-align: -0.1em;
+}
+
+/* ── Platzhalterkarte "Ihr Projekt?" ──────────────────────── */
+
+.web-card--cta {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  gap: 0.9rem;
+  background: transparent;
+  border: 1px dashed rgba(180, 80, 180, 0.45);
+  box-shadow: none;
+}
+
+.web-card--cta .web-card-title,
+.web-card--cta .web-card-desc {
+  text-align: center;
+}
+
+.web-card--cta .web-card-desc {
+  flex: 0 1 auto;
+}
+
+.web-card--cta .web-card-btn {
+  align-self: center;
+}
+
+/* ── Überschrift in der CTA-Karte ─────────────────────────── */
+
+.web-cta-title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  letter-spacing: 0.15em;
+  font-weight: 600;
+}

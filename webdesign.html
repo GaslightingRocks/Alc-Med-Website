@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Webdesign von Alcedo Media: individuelle, responsive Websites – von Konzept und Design bis zum Livegang und darüber hinaus.">
+  <title>Webdesign - Alcedo Media</title>
+  <link rel="icon" type="image/svg+xml" href="./logo.svg">
+
+  <!-- Basis-Styles: gleiche Reihenfolge wie auf der Startseite.
+       06-gallery.css und 08-modal-lightbox.css werden hier nicht
+       gebraucht (keine Galerie, keine Lightbox). -->
+  <link rel="stylesheet" href="./01-reset.css">
+  <link rel="stylesheet" href="./02-animations.css">
+  <link rel="stylesheet" href="./03-typography.css">
+  <link rel="stylesheet" href="./04-navigation.css">
+  <link rel="stylesheet" href="./05-hero-intro.css">
+  <link rel="stylesheet" href="./07-content-sections.css">
+  <link rel="stylesheet" href="./07b-webdesign.css">
+  <link rel="stylesheet" href="./09-footer.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- MUSS zuletzt geladen werden, damit die @media-Overrides greifen -->
+  <link rel="stylesheet" href="./10-responsive.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="icon" href="/Screenshot 2026-05-18 095350.png" type="image/png">
+  <link rel="shortcut icon" href="/Screenshot 2026-05-18 095350.png">
+</head>
+<body>
+
+  <!-- ── Topbar / Navigation ───────────────────────────────── -->
+  <div class="topbar">
+    <div class="topbar-inner">
+
+      <a href="index.html" class="home-button">
+        <img src="./logo.svg" alt="Alcedo Logo" class="inline-logo">
+        <span class="navbar-brand-text">Alcedo Media</span>
+      </a>
+
+      <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav" id="nav">
+         <li><a href="index.html">Medienproduktion</a></li>
+        <li><a href="#web-leistung">Leistungen</a></li>
+        <li><a href="#web-referenzen">Referenzen</a></li>
+        <li><a href="index.html#contacting">Kontakt</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- Abdunklung der Seite bei offenem Menü -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ── Hero ──────────────────────────────────────────────── -->
+  <header class="web-hero">
+    <div class="reveal-wrapper">
+      <h1 class="reveal-text">Webdesign</h1>
+      <div class="reveal-beam"></div>
+    </div>
+    <h2 class="hero-subtitle">Websites, die zu Ihnen passen</h2>
+  </header>
+
+  <!-- ── 1. Leistungen ─────────────────────────────────────── -->
+  <section id="web-leistung">
+
+
+    <div class="leist-cards">
+
+      <div class="leist-card">
+        <div class="leist-card-icon">
+          <i class="ti ti-layout" aria-hidden="true"></i>
+        </div>
+        <h3 class="leist-card-title">Konzept &amp; Design</h3>
+        <p class="leist-card-desc">Wir klären Ziel und Zielgruppe und gestalten ein Design, das zu Ihrer Marke passt.</p>
+      </div>
+
+      <div class="leist-card">
+        <div class="leist-card-icon">
+          <i class="ti ti-code" aria-hidden="true"></i>
+        </div>
+        <h3 class="leist-card-title">Umsetzung</h3>
+        <p class="leist-card-desc">Saubere Umsetzung in HTML, CSS und JavaScript - schnell und individuell.</p>
+      </div>
+
+      <div class="leist-card">
+        <div class="leist-card-icon">
+          <i class="ti ti-device-mobile" aria-hidden="true"></i>
+        </div>
+        <h3 class="leist-card-title">Für jedes Gerät</h3>
+        <p class="leist-card-desc">Auf Handy, Tablet und Desktop sieht Ihre Seite gut aus und lässt sich überall bedienen.</p>
+      </div>
+
+      <div class="leist-card">
+        <div class="leist-card-icon">
+          <i class="ti ti-rocket" aria-hidden="true"></i>
+        </div>
+        <h3 class="leist-card-title">Livegang &amp; Betreuung</h3>
+        <p class="leist-card-desc">Wir bringen Ihre Seite online und kümmern uns auch danach.</p>
+      </div>
+
+    </div>
+    
+  </section>
+
+  <!-- ── 2. Referenzen ─────────────────────────────────────── -->
+  <section id="web-referenzen">
+    <p class="section-label-mid">Referenzen</p>
+    
+    <p class="web-intro" style="color: rgb(117, 117, 117);">
+      Ihre Website ist oft der erste Eindruck, den Kunden von Ihnen bekommen.
+      Wir gestalten und bauen sie so, dass sie gut aussieht, schnell lädt,
+      auf jedem Gerät angenehm zu bedienen ist und gut über google und co. zu finden.
+    </p>
+
+    <div class="web-grid">
+
+      <!-- Referenzkarte: Alcedo Media (eigene Website) -->
+      <article class="web-card animation">
+        <a href="https://www.alcedo-online.com" target="_blank" rel="noopener noreferrer"
+           class="web-card-media" aria-label="Website von Alcedo Media ansehen">
+          <div class="web-browser">
+            <span class="web-dots"></span>
+            <span class="web-url">alcedo-online.com</span>
+          </div>
+          <div class="web-shot">
+            <!-- Screenshot als ./web-alcedo.webp ablegen. Fehlt die Datei,
+                 bleibt der Logo-Platzhalter stehen. -->
+            <img src="./web-alcedo.webp" alt="Screenshot der Website von Alcedo Media"
+                 loading="lazy" onerror="this.remove()">
+          </div>
+        </a>
+        <div class="web-card-body">
+          <h3 class="web-card-title">Alcedo Media</h3>
+          <p class="web-card-desc">
+            Unsere eigene Website: <br>Konzept, Design und Umsetzung komplett von uns.
+            Mit animiertem Logo, Referenzgalerie und
+            datenschutzfreundlicher Video-Einbindung.
+          </p>
+          <ul class="web-tags">
+            <li>Konzept</li>
+            <li>Design</li>
+            <li>Umsetzung</li>
+          </ul>
+          <a href="https://www.alcedo-online.com" target="_blank" rel="noopener noreferrer"
+             class="cta-btn web-card-btn">Website ansehen <i class="ti ti-external-link" aria-hidden="true"></i></a>
+        </div>
+      </article>
+
+
+      <article class="web-card animation">
+        <a href="http://emanuelgastronomy.com" target="_blank" rel="noopener noreferrer"
+           class="web-card-media" aria-label="Website von KUNDE ansehen">
+          <div class="web-browser">
+            <span class="web-dots"></span>
+            <span class="web-url">emanuelgastronomy.com</span>
+          </div>
+          <div class="web-shot">
+            <img src="./EGWebref.webp" alt="Screenshot der Website von KUNDE"
+                 loading="lazy" onerror="this.remove()">
+          </div>
+        </a>
+        <div class="web-card-body">
+          <h3 class="web-card-title">Emanuel Gastronomy</h3>
+          <p class="web-card-desc">Reinterpretation der bestehenden Website <br>mit einer Hauptseite und sechs Unterseiten. Integration des Cateringangebots inklusive Broschüre, Speisekarte und Kontaktformular.</p>
+          <ul class="web-tags">
+             <li>Konzept</li>
+            <li>Design</li>
+            <li>Umsetzung</li>
+          </ul>
+          <a href="https://emanuelgastronomy.com" target="_blank" rel="noopener noreferrer"
+             class="cta-btn web-card-btn">Website ansehen <i class="ti ti-external-link" aria-hidden="true"></i></a>
+        </div>
+      </article>
+
+      <!-- VORLAGE für weitere Referenzen: Block kopieren, vor die
+           "Ihr Projekt?"-Karte setzen und Texte/Links/Bild anpassen.
+
+      <article class="web-card animation">
+        <a href="https://BEISPIEL.de" target="_blank" rel="noopener noreferrer"
+           class="web-card-media" aria-label="Website von KUNDE ansehen">
+          <div class="web-browser">
+            <span class="web-dots"></span>
+            <span class="web-url">beispiel.de</span>
+          </div>
+          <div class="web-shot">
+            <img src="./web-kunde.webp" alt="Screenshot der Website von KUNDE"
+                 loading="lazy" onerror="this.remove()">
+          </div>
+        </a>
+        <div class="web-card-body">
+          <h3 class="web-card-title">KUNDE</h3>
+          <p class="web-card-desc">Kurzbeschreibung des Projekts und eurer Rolle.</p>
+          <ul class="web-tags">
+            <li>Design</li>
+            <li>Umsetzung</li>
+          </ul>
+          <a href="https://BEISPIEL.de" target="_blank" rel="noopener noreferrer"
+             class="cta-btn web-card-btn">Website ansehen <i class="ti ti-external-link" aria-hidden="true"></i></a>
+        </div>
+      </article>
+      -->
+
+      <!-- Platzhalter: lädt zur Anfrage ein -->
+      <article class="web-card web-card--cta animation">
+        <div class="leist-card-icon">
+          <i class="ti ti-plus" aria-hidden="true"></i>
+        </div>
+        <h3 class="web-card-title">Ihr Projekt?</h3>
+        <p class="web-card-desc">Ihre Website könnte die nächste Referenz sein. Erzählen Sie uns von Ihrer Idee.</p>
+        <a href="index.html#contacting" class="cta-btn web-card-btn">Projekt anfragen</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── 3. Kontakt / CTA ──────────────────────────────────── -->
+  <section id="web-kontakt" class="cta-section">
+    <div class="cta-card">
+      <h2 class="web-cta-title">Website geplant?</h2>
+      <p>Lass uns gemeinsam Ideen zum Leben erwecken.</p>
+      <a href="index.html#contacting" class="cta-btn">Jetzt anfragen</a>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 Alcedo Media</p>
+      <p>website by Alcedo Media</p>
+      <div class="footer-links">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="https://www.instagram.com/ariusha_wbr/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ───────────────────────────────────────────── -->
+  <script src="webdesign.js"></script>
+
+</body>
+</html>
